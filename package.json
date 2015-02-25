@@ -1,0 +1,33 @@
+{
+  "name": "react-isomorphic-starterkit",
+  "description": "Isomorphic starterkit with server-side React rendering.",
+  "version": "0.9.1",
+  "license": "BSD-3",
+  "keywords": [
+    "react", "isomorphic", "starter", "boilerplate", "template", "webpack", "hapi"
+  ],
+  "main": "dist/index",
+  "scripts": {
+    "start": "eval 'supervisor dist/server >tmp/supervisor.log 2>&1 & SUPERVISOR_PID=$!';     sleep 1;      open http://localhost:8000;       tail -f tmp/*.log;     kill $SUPERVISOR_PID;",
+    "build": "webpack --verbose --progress --colors --display-error-details --config webpack.server.js && webpack --verbose --progress --colors --display-error-details --config webpack.client.js",
+    "watch-server": "webpack -wcv --display-error-details --config webpack.server-watch.js",
+    "watch-client": "webpack -cv --display-error-details --config webpack.client-watch.js && webpack-dev-server --config webpack.client-watch.js",
+    "watch": "eval 'npm run watch-server >tmp/server.log 2>&1 & SERVER_PID=$!';      eval 'npm run watch-client >tmp/client.log 2>&1 & CLIENT_PID=$!';     sleep 3;    npm run start;     kill $CLIENT_PID $SERVER_PID;"
+  },
+  "dependencies": {
+    "babel": "4.5.1",
+    "hapi": "8.2.0",
+    "react": "0.12.2",
+    "react-router": "0.12.4"
+  },
+  "devDependencies": {
+    "babel-loader": "4.0.0",
+    "css-loader": "0.9.1",
+    "json-loader": "0.5.1",
+    "jsx-loader": "0.12.2",
+    "react-hot-loader": "1.1.5",
+    "style-loader": "0.8.3",
+    "webpack": "1.5.3",
+    "webpack-dev-server": "1.7.0"
+  }
+}
