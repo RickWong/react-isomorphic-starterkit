@@ -5,8 +5,9 @@ Isomorphic starterkit with server-side React rendering using
 [npm](https://www.npmjs.com/), 
 [supervisor](https://www.npmjs.com/package/supervisor), 
 [webpack](https://webpack.github.io/), 
-[hapi](http://www.hapijs.com/), 
-[react](https://facebook.github.io/react), 
+[webpack-dev-server](https://github.com/webpack/webpack-dev-server),
+[hapi.js](http://www.hapijs.com/), 
+[react.js](https://facebook.github.io/react), 
 [react-router](https://github.com/rackt/react-router), 
 [react-hot-loader](https://gaearon.github.io/react-hot-loader), 
 [reactstyle](https://github.com/RickWong/ReactStyle)
@@ -28,7 +29,7 @@ It just works out-of-the-box.
 	git clone https://github.com/RickWong/react-isomorphic-starterkit.git
 	cd react-isomorphic-starterkit
 	
-	npm install -g supervisor webpack
+	npm install -g supervisor webpack webpack-dev-server
 	npm install
 	
 	# development 
