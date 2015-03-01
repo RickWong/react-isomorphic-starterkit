@@ -13,11 +13,20 @@ Isomorphic starterkit with server-side React rendering using
 [react-hot-loader](https://gaearon.github.io/react-hot-loader), 
 [reactstyle](https://github.com/RickWong/ReactStyle)
 
-## Screenshot
+## Features
 
-![screenshot](http://i.imgur.com/Jz0zOJj.png?1)
+- Fully automated with npm run scripts
+- Supervisor with Hapi.js server
+- Webpack for watch and production builds
+- React.js + Router on the client and server
+- React Hot Loader for instant client updates
+- Babel.js automatically compiles ES6
+- Style-component for quick in-component CSS
+- Shrinkwrapped npm dependencies
 
 It just works out-of-the-box.
+
+![screenshot](http://i.imgur.com/Jz0zOJj.png?1)
 
 ## Installation
 
