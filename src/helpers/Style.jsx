@@ -15,7 +15,7 @@ const Style = React.createClass({
 	_transformSheet (sheet, namespace) {
 		return sheet.
 			// Put all CSS-properties at start of new line.
-			replace(/([a-z0-9\-_]+\s*:)(?!\/\/)/ig, '\n  $1').
+			replace(/([a-z0-9\-_]+\s*:)(?!\/\/)/ig, '\n$1').
 			// Prettier output.
 			replace(/}\s*/ig, '\n}\n').
 			// Regular rules are namespaced.

@@ -1,7 +1,7 @@
 {
   "name": "react-isomorphic-starterkit",
   "description": "Isomorphic starterkit with server-side React rendering.",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "license": "BSD-3",
   "keywords": [
     "react", "isomorphic", "starter", "boilerplate", "template", "webpack", "hapi"
