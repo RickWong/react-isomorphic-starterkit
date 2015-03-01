@@ -12,9 +12,6 @@ const Style = React.createClass({
 		namespace: React.PropTypes.string,
 		wrapper: React.PropTypes.string
 	},
-	getDefaultProps () {
-		return {namespace: "style-" + (++refCounter)};
-	},
 	_transformSheet (sheet, namespace) {
 		return sheet.
 			// Put all CSS-properties at start of new line.
@@ -29,9 +26,10 @@ const Style = React.createClass({
 	},
 	render() {
 		const Wrapper = this.props.wrapper || "div";
-		const transformedSheet = this._transformSheet(this.props.sheet, this.props.namespace);
+		const namespace = this.props.namespace || "react-style-" + refCounter++;
+		const transformedSheet = this._transformSheet(this.props.sheet, namespace);
 
-		return <Wrapper className={this.props.namespace}>
+		return <Wrapper className={namespace}>
 			{this.props.children}
 			<style scoped dangerouslySetInnerHTML={{__html: transformedSheet}} />
 		</Wrapper>;
