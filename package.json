@@ -1,8 +1,13 @@
 {
   "name": "react-isomorphic-starterkit",
   "description": "Isomorphic starterkit with server-side React rendering.",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "license": "BSD-3",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RickWong/react-isomorphic-starterkit.git"
+  },
+  "homepage": "https://github.com/RickWong/react-isomorphic-starterkit",
   "keywords": [
     "react", "isomorphic", "starter", "boilerplate", "template", "webpack", "hapi"
   ],
@@ -15,19 +20,20 @@
     "watch": "eval 'npm run watch-server >tmp/server.log 2>&1 & SERVER_PID=$!';      eval 'npm run watch-client >tmp/client.log 2>&1 & CLIENT_PID=$!';     sleep 3;    npm run start;     kill $CLIENT_PID $SERVER_PID;"
   },
   "dependencies": {
-    "babel": "4.5.1",
+    "babel": "4.6.5",
     "hapi": "8.2.0",
     "react": "0.12.2",
-    "react-router": "0.12.4"
+    "react-router": "0.12.4",
+    "superagent": "0.21.0"
   },
   "devDependencies": {
     "babel-loader": "4.0.0",
     "css-loader": "0.9.1",
     "json-loader": "0.5.1",
     "jsx-loader": "0.12.2",
-    "react-hot-loader": "1.1.5",
+    "react-hot-loader": "1.1.6",
     "style-loader": "0.8.3",
-    "webpack": "1.5.3",
+    "webpack": "1.6.0",
     "webpack-dev-server": "1.7.0"
   }
 }

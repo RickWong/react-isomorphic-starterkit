@@ -26,7 +26,7 @@ Isomorphic starterkit with server-side React rendering using
 
 It just works out-of-the-box.
 
-![screenshot](http://i.imgur.com/Jz0zOJj.png?1)
+![screenshot](https://i.imgur.com/sRLAMUP.png?1)
 
 ## Installation
 

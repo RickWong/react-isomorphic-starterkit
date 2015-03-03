@@ -23,15 +23,15 @@ server.route({
 	method:  "*",
 	path:    "/{params*}",
 	handler: (request, reply) => {
-		reply.file('static' + request.path);
+		reply.file("static" + request.path);
 	}
 });
 
 /**
  * Catch dynamic requests here to fire-up React Router.
  */
-server.ext('onPreResponse', (request, reply) => {
-	if (typeof request.response.statusCode !== 'undefined') {
+server.ext("onPreResponse", (request, reply) => {
+	if (typeof request.response.statusCode !== "undefined") {
 		return reply.continue();
 	}
 

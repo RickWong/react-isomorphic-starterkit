@@ -1,5 +1,4 @@
 const React = require("react");
-require("react/addons");
 const Style = require("../helpers/Style");
 
 /**
@@ -8,22 +7,49 @@ const Style = require("../helpers/Style");
  * @module Main
  */
 const Main = React.createClass({
-	mixins: [React.addons.PureRenderMixin],
+	getInitialState() {
+		/**
+		 * Must be the same for server and client.
+		 */
+		return {stargazers: []};
+	},
+	componentWillMount() {
+		/**
+		 * Perform perfect isomorphic operations that run on server & client.
+		 */
+		console.log("Hello server and client");
+	},
+	componentDidMount() {
+		/**
+		 * Client-only.
+		 */
+		console.log("Hello client again");
+
+		if (__CLIENT__) {
+			const Superagent = require("superagent");
+
+			Superagent.
+				get(
+				"https://api.github.com/repos/RickWong/react-isomorphic-starterkit/stargazers?per_page=500"
+				).
+				set("Authorization", "Bearer dcebd82c3a66a89d85ba41945450a981910d53f2").
+				end((response) => {
+					if (response.body.length) {
+						this.setState({stargazers: response.body});
+					}
+				});
+		}
+	},
 	statics: {
 		/**
 		 * <Style> component allows you to write basic CSS for your component. Target
 		 * your component with `&` and its children with `& selectors`. Be specific.
+		 * You're not required to use this helper component.
 		 */
-		css: () => `
+		css: (avatarSize) => `
 			& * {
 				font-family: sans-serif;
 				color: #0df;
-			}
-			& {
-				padding: 10px 30px 30px;
-				width: 380px;
-				margin: 50px auto;
-				background: #222;
 			}
 			& .github {
 				position: absolute;
@@ -31,30 +57,30 @@ const Main = React.createClass({
 				right: 0;
 				border: 0;
 			}
+			& {
+				padding: 10px 30px 30px;
+				width: 380px;
+				margin: 10px auto;
+				background: #222;
+			}
+			& .avatar {
+				border-radius: 50%;
+				width: ${avatarSize}px;
+				height: ${avatarSize}px;
+				margin: 0 2px 2px 0;
+			}
+			& .you {
+				opacity: .3;
+				transition: opacity .3s ease-out;
+			}
+			&:hover .you {opacity: 1;}
 		`
 	},
-	getInitialState() {
-		/**
-		 * Must be the same for server and client.
-		 */
-		return {};
-	},
-	componentWillMount() {
-		/**
-		 * Write your initial setup here.
-		 * Must be the same for server and client.
-		 */
-		console.log("Hello server and client");
-	},
-	componentDidMount() {
-		/**
-		 * This is client-only.
-		 */
-		console.log("Hello client");
-	},
 	render() {
+		let avatarSize = 32;
+
 		return (
-			<Style sheet={Main.css()} namespace="Main">
+			<Style sheet={Main.css(avatarSize)} namespace="Main">
 				<a className="github" href="https://github.com/RickWong/react-isomorphic-starterkit"><img src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" /></a>
 				<h1><img src="/favicon.ico" /> <br/> Welcome to React Isomorphic Starterkit.</h1>
 				<h3>Features</h3>
@@ -69,8 +95,19 @@ const Main = React.createClass({
 					<li>Shrinkwrapped npm dependencies</li>
 				</ul>
 				<p>
-					<span>In short – <em>an excellent choice</em>. </span>
-					<a href="#" onClick={(e) => {e.preventDefault(); alert("Happy coding!"); }}>Get started{'?'}</a>
+					In short – <em>an excellent choice</em>.
+					Ready to start{'?'}
+				</p>
+				<h3>Community</h3>
+				<p>
+					{this.state.stargazers.map((user) => {
+						return (
+							<img key={user.id} className="avatar" src={user.avatar_url + "&s=" + avatarSize*2} title={user.login} alt={user.login} />
+						);
+					})}
+					<a href="https://github.com/RickWong/react-isomorphic-starterkit" className="you" title="you here? star us!">
+						<img className="avatar" src={"https://avatars.githubusercontent.com/u/0?v=3&s=" + avatarSize*2} alt="you?" />
+					</a>
 				</p>
 			</Style>
 		);
