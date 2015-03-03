@@ -30,9 +30,8 @@ const Main = React.createClass({
 
 			Superagent.
 				get(
-				"https://api.github.com/repos/RickWong/react-isomorphic-starterkit/stargazers?per_page=500"
+					"https://api.github.com/repos/RickWong/react-isomorphic-starterkit/stargazers?per_page=500"
 				).
-				set("Authorization", "Bearer dcebd82c3a66a89d85ba41945450a981910d53f2").
 				end((response) => {
 					if (response.body.length) {
 						this.setState({stargazers: response.body});
