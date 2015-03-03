@@ -1,3 +1,5 @@
+![screenshot](https://i.imgur.com/sRLAMUP.png?1)
+
 # React Isomorphic Starterkit
 
 Isomorphic starterkit with server-side React rendering using 
@@ -25,8 +27,6 @@ Isomorphic starterkit with server-side React rendering using
 - Shrinkwrapped npm dependencies
 
 It just works out-of-the-box.
-
-![screenshot](https://i.imgur.com/sRLAMUP.png?1)
 
 ## Installation
 
