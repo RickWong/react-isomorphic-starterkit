@@ -1,8 +1,10 @@
+const async = require("async");
 const path = require("path");
 const React = require("react");
 const Router = require("react-router");
 const {Server} = require("hapi");
 const ltrim = require("./helpers/ltrim");
+const wrapContext = require("./helpers/wrapContext");
 const routes = require("./views/Routes");
 
 /**
@@ -36,24 +38,53 @@ server.ext("onPreResponse", (request, reply) => {
 	}
 
 	Router.run(routes, request.path, (Handler) => {
-		const component = React.renderToString(<Handler />);
-		const webserver = process.env.NODE_ENV === "production" ? "" : "//localhost:8080";
-		const output = ltrim(
-			`<!doctype html>
-			<html lang="en-us">
-				<head>
-					<meta charset="utf-8">
-					<title>react-isomorphic-starterkit</title>
-					<link rel="shortcut icon" href="/favicon.ico">
-				</head>
-				<body>
-					<div id="react-root">${component}</div>
-					<script src="${webserver}/dist/client.js"></script>
-				</body>
-			</html>`
-		);
+		/**
+		 * Prepare a React Context unique per server request.
+		 */
+		const serverContext = {
+			request,
+			waitFor: {},
+			data: {}
+		};
 
-		reply(output);
+		/**
+		 * Wrap the routed Handler to use the context.
+		 */
+		Handler = wrapContext(Handler, serverContext);
+
+		/**
+		 * Fake-render the components without output so they can register waitFor-callbacks.
+		 */
+		React.renderToString(<Handler />);
+
+		const waitForAll = Object.keys(serverContext.waitFor).map((k) => serverContext.waitFor[k]);
+
+		/**
+		 * Wait for all the registered callbacks and render for real, but this time with data.
+		 */
+		async.parallel(waitForAll, (error, results) => {
+			const rendered = React.renderToString(<Handler />);
+			const serverData = JSON.stringify(serverContext.data);
+			const webserver = process.env.NODE_ENV === "production" ? "" : "//localhost:8080";
+
+			const output = ltrim(
+				`<!doctype html>
+				<html lang="en-us">
+					<head>
+						<meta charset="utf-8">
+						<title>react-isomorphic-starterkit</title>
+						<link rel="shortcut icon" href="/favicon.ico">
+					</head>
+					<body>
+						<div id="react-root">${rendered}</div>
+						<script>window.SERVER_DATA = ${serverData};</script>
+						<script src="${webserver}/dist/client.js"></script>
+					</body>
+				</html>`
+			);
+
+			reply(output);
+		});
 	})
 });
 

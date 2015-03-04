@@ -21,12 +21,12 @@ config.plugins = [
 ];
 config.devServer = {
 	publicPath:  "http://localhost:8080/dist/",
-		contentBase: "./static",
-		hot:         true,
-		inline:      true,
-		quiet:       true,
-		noInfo:      true,
-		headers:     {"Access-Control-Allow-Origin": "*"},
+	contentBase: "./static",
+	hot:         true,
+	inline:      true,
+	quiet:       true,
+	noInfo:      true,
+	headers:     {"Access-Control-Allow-Origin": "*"},
 	stats:       {colors: true}
 };
 

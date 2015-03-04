@@ -9,7 +9,13 @@
   },
   "homepage": "https://github.com/RickWong/react-isomorphic-starterkit",
   "keywords": [
-    "react", "isomorphic", "starter", "boilerplate", "template", "webpack", "hapi"
+    "react",
+    "isomorphic",
+    "starter",
+    "boilerplate",
+    "template",
+    "webpack",
+    "hapi"
   ],
   "main": "dist/index",
   "scripts": {
@@ -20,6 +26,7 @@
     "watch": "eval 'npm run watch-server >tmp/server.log 2>&1 & SERVER_PID=$!';      eval 'npm run watch-client >tmp/client.log 2>&1 & CLIENT_PID=$!';     sleep 3;    npm run start;     kill $CLIENT_PID $SERVER_PID;"
   },
   "dependencies": {
+    "async": "0.9.0",
     "babel": "4.6.5",
     "hapi": "8.2.0",
     "react": "0.12.2",

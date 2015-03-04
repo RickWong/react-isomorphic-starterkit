@@ -1,11 +1,18 @@
 const React = require("react");
 const Router = require("react-router");
+const wrapContext = require("./helpers/wrapContext");
 const routes = require("./views/Routes");
 
 /**
  * Fire-up React Router.
  */
 Router.run(routes, Router.HistoryLocation, (Handler) => {
+	const clientContext = {
+		data: window.SERVER_DATA || {}
+	};
+
+	Handler = wrapContext(Handler, clientContext);
+
 	React.render(<Handler />, document.getElementById("react-root"));
 });
 

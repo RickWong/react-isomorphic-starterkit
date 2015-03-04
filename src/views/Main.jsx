@@ -1,5 +1,6 @@
 const React = require("react");
 const Style = require("../helpers/Style");
+const Superagent = require("superagent");
 
 /**
  * Main React application entry-point for both the server and client.
@@ -7,37 +8,59 @@ const Style = require("../helpers/Style");
  * @module Main
  */
 const Main = React.createClass({
+	contextTypes: {
+		request: React.PropTypes.any,
+		waitFor: React.PropTypes.any,
+		data: React.PropTypes.any
+	},
 	getInitialState() {
 		/**
 		 * Must be the same for server and client.
 		 */
-		return {stargazers: []};
+		return {stargazers: this.context.data.stargazers || []};
 	},
 	componentWillMount() {
 		/**
-		 * Perform perfect isomorphic operations that run on server & client.
+		 * Server-only.
 		 */
-		console.log("Hello server and client");
+		if (__SERVER__) {
+			console.log("Hello server");
+
+			if (!this.context.waitFor.github) {
+				this.context.waitFor.github = (callback) => {
+					Superagent.get(
+						"https://api.github.com/repos/RickWong/react-isomorphic-starterkit/stargazers?per_page=500"
+					).
+					end((error, response) => {
+						if (response.body.length) {
+							this.context.data.stargazers = response.body.map((user) => {
+								return {
+									id: user.id,
+									login: user.login,
+									avatar_url: user.avatar_url
+								}
+							});
+						}
+
+						callback(error, response);
+					});
+				};
+			}
+		}
+
+		/**
+		 * Client-only.
+		 */
+		if (__CLIENT__) {
+			console.log("Hello client");
+		}
 	},
 	componentDidMount() {
 		/**
 		 * Client-only.
 		 */
-		console.log("Hello client again");
-
 		if (__CLIENT__) {
-			const Superagent = require("superagent");
-
-			Superagent.
-				get(
-				"https://api.github.com/repos/RickWong/react-isomorphic-starterkit/stargazers?per_page=500"
-				).
-				set("Authorization", "Bearer dcebd82c3a66a89d85ba41945450a981910d53f2").
-				end((response) => {
-					if (response.body.length) {
-						this.setState({stargazers: response.body});
-					}
-				});
+			console.log("Hello client again");
 		}
 	},
 	statics: {

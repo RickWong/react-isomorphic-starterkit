@@ -2,6 +2,11 @@
   "name": "react-isomorphic-starterkit",
   "version": "0.9.3",
   "dependencies": {
+    "async": {
+      "version": "0.9.0",
+      "from": "async@0.9.0",
+      "resolved": "https://registry.npmjs.org/async/-/async-0.9.0.tgz"
+    },
     "babel": {
       "version": "4.6.5",
       "from": "babel@4.6.5",
