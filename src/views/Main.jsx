@@ -12,27 +12,33 @@ const Main = React.createClass({
 	mixins: [
 		ContextHelper.Mixin
 	],
+	/**
+	 * Server and client.
+	 */
 	getInitialState() {
 		/**
 		 * Server calls this method twice. The 1st pass without context data, but it will let you
 		 * load the context data like here...
 		 */
-		this.loadContextOnce("stargazers", (completed) => {
-			Superagent.get(
-				"https://api.github.com/repos/RickWong/react-isomorphic-starterkit/stargazers?per_page=500"
-			).
-			end((error, response) => {
-				if (response.body.length) {
-					this.setContext("stargazers", response.body.map((user) => {
-						return {
-							id: user.id,
-							login: user.login
-						}
-					}));
-				}
-				completed(error, response);
+		if (__SERVER__) {
+			this.loadContextOnce("stargazers", (completed) => {
+				Superagent.get(
+					"https://api.github.com/repos/RickWong/react-isomorphic-starterkit/stargazers?per_page=500"
+				).
+				end((error, response) => {
+					if (response.body.length) {
+						console.log(this.context);
+						this.setContext("stargazers", response.body.map((user) => {
+							return {
+								id: user.id,
+								login: user.login
+							}
+						}));
+					}
+					completed(error, response);
+				});
 			});
-		});
+		}
 
 		/**
 		 * ...Then the 2nd pass will have the loaded context. You MUST return exactly the same on
@@ -42,21 +48,22 @@ const Main = React.createClass({
 			stargazers: this.getContext("stargazers") || []
 		};
 	},
+	/**
+	 * Server and client.
+	 */
 	componentWillMount() {
-		/**
-		 * Server and client.
-		 */
 		if (__SERVER__) {
 			console.log("Hello server");
 		}
+
 		if (__CLIENT__) {
 			console.log("Hello client");
 		}
 	},
+	/**
+	 * Client-only.
+	 */
 	componentDidMount() {
-		/**
-		 * Client-only.
-		 */
 		if (__CLIENT__) {
 			console.log("Hello client again");
 		}
@@ -94,6 +101,9 @@ const Main = React.createClass({
 			}
 			&:hover .you {opacity: 1;}`
 	},
+	/**
+	 * Server and client.
+	 */
 	render() {
 		const repositoryUrl = "https://github.com/RickWong/react-isomorphic-starterkit";
 		const avatarSize = 32;
