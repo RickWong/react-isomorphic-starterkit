@@ -1,7 +1,7 @@
 const React = require("react");
 const Superagent = require("superagent");
 const Style = require("./Style");
-const ContextMixin = require("../helpers/ContextMixin");
+const ContextHelper = require("../helpers/ContextHelper");
 
 /**
  * Main React application entry-point for both the server and client.
@@ -10,7 +10,7 @@ const ContextMixin = require("../helpers/ContextMixin");
  */
 const Main = React.createClass({
 	mixins: [
-		ContextMixin
+		ContextHelper.Mixin
 	],
 	getInitialState() {
 		/**
@@ -36,8 +36,7 @@ const Main = React.createClass({
 						this.setContext("stargazers", response.body.map((user) => {
 							return {
 								id: user.id,
-								login: user.login,
-								avatar_url: user.avatar_url
+								login: user.login
 							}
 						}));
 					}
@@ -89,12 +88,18 @@ const Main = React.createClass({
 		`
 	},
 	render() {
-		let avatarSize = 32;
+		const repositoryUrl = "https://github.com/RickWong/react-isomorphic-starterkit";
+		const avatarSize = 32;
+		const avatarUrl = (id) => `https://avatars.githubusercontent.com/u/${id}?v=3&s=${avatarSize*2}`;
 
 		return (
 			<Style sheet={Main.css(avatarSize)} namespace="Main">
-				<a className="github" href="https://github.com/RickWong/react-isomorphic-starterkit"><img src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" /></a>
-				<h1><img src="/favicon.ico" /> <br/> Welcome to React Isomorphic Starterkit.</h1>
+				<a className="github" href={repositoryUrl}>
+					<img src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" />
+				</a>
+				<h1>
+					<img src="/favicon.ico" /> <br/> Welcome to React Isomorphic Starterkit.
+				</h1>
 				<h3>Features</h3>
 				<ul>
 					<li>Fully automated with npm run scripts</li>
@@ -103,7 +108,7 @@ const Main = React.createClass({
 					<li>React.js + Router on the client and server</li>
 					<li>React Hot Loader for instant client updates</li>
 					<li>Babel.js automatically compiles ES6</li>
-					<li>ContextMixin to hydrate from server to client</li>
+					<li>Context-helper to preload on server to client</li>
 					<li>Style-component for quick in-component CSS</li>
 					<li>Shrinkwrapped npm dependencies</li>
 				</ul>
@@ -114,12 +119,10 @@ const Main = React.createClass({
 				<h3>Community</h3>
 				<p>
 					{this.state.stargazers.map((user) => {
-						return (
-							<img key={user.id} className="avatar" src={user.avatar_url + "&s=" + avatarSize*2} title={user.login} alt={user.login} />
-						);
+						return <img key={user.id} className="avatar" src={avatarUrl(user.id)} title={user.login} />;
 					})}
-					<a href="https://github.com/RickWong/react-isomorphic-starterkit" className="you" title="you here? star us!">
-						<img className="avatar" src={"https://avatars.githubusercontent.com/u/0?v=3&s=" + avatarSize*2} alt="you?" />
+					<a href={repositoryUrl} className="you" title="you here? star us!">
+						<img className="avatar" src={avatarUrl(0)} alt="you?" />
 					</a>
 				</p>
 			</Style>

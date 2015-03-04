@@ -32,7 +32,14 @@ const ContextMixin = {
 		}
 
 		return this.context.contextLoaders[key] = loaderFn;
-	},
+	}
+};
+
+/**
+ * @module ContextHelper
+ */
+const ContextHelper = {
+	Mixin: ContextMixin,
 	getContextLoaders (context) {
 		return Object.keys(context.contextLoaders).map(
 			(k) => context.contextLoaders[k]
@@ -45,7 +52,7 @@ const ContextMixin = {
 			childContextTypes[key] = React.PropTypes.any
 		});
 
-		const ContextualComponent = React.createClass({
+		return React.createClass({
 			childContextTypes,
 			getChildContext () {
 				return context;
@@ -54,10 +61,8 @@ const ContextMixin = {
 				return <Component />;
 			}
 		});
-
-		return ContextualComponent;
 	},
-	serverContext () {
+	getServerContext () {
 		let serverContext = {};
 
 		Object.keys(ContextMixin.contextTypes).map((key) => {
@@ -66,11 +71,11 @@ const ContextMixin = {
 
 		return serverContext;
 	},
-	clientContext (window) {
+	getClientContext (window) {
 		return {
 			contextData: window.CONTEXT_DATA || {}
 		};
 	}
 };
 
-export default ContextMixin;
+export default ContextHelper;

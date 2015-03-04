@@ -3,7 +3,7 @@ const path = require("path");
 const React = require("react");
 const Router = require("react-router");
 const {Server} = require("hapi");
-const ContextMixin = require("./helpers/ContextMixin");
+const ContextHelper = require("./helpers/ContextHelper");
 const routes = require("./views/Routes");
 
 /**
@@ -40,15 +40,15 @@ server.ext("onPreResponse", (request, reply) => {
 		/**
 		 * Prepare a unique Server Context per request, and inject it.
 		 */
-		const serverContext = ContextMixin.serverContext();
+		const serverContext = ContextHelper.getServerContext();
 		serverContext.request = request;
-		const ContextualHandler = ContextMixin.injectContext(Handler, serverContext);
+		const ContextualHandler = ContextHelper.injectContext(Handler, serverContext);
 
 		/**
 		 * Fake-render the components without output so they can register context loaders.
 		 */
 		React.renderToString(<ContextualHandler />);
-		const loaders = ContextMixin.getContextLoaders(serverContext);
+		const loaders = ContextHelper.getContextLoaders(serverContext);
 
 		/**
 		 * Wait for all the registered callbacks and render for real, but this time with data.
