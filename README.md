@@ -9,6 +9,7 @@ Isomorphic starterkit with server-side React rendering using
 [webpack](https://webpack.github.io/), 
 [webpack-dev-server](https://github.com/webpack/webpack-dev-server),
 [hapi.js](http://www.hapijs.com/), 
+[async](https://github.com/caolan/async), 
 [babel.js](http://babeljs.io/), 
 [react.js](https://facebook.github.io/react), 
 [react-router](https://github.com/rackt/react-router), 
@@ -23,6 +24,7 @@ Isomorphic starterkit with server-side React rendering using
 - React.js + Router on the client and server
 - React Hot Loader for instant client updates
 - Babel.js automatically compiles ES6
+- Context-helper to preload on server to client
 - Style-component for quick in-component CSS
 - Shrinkwrapped npm dependencies
 
@@ -47,9 +49,9 @@ the server-side rendering and client-side hot updates.
 
 ## Community
 
-Let's start one together! After you Star this project, follow me [@Rygu](https://twitter.com/rygu)
+Let's start one together! After you ★Star this project, follow me [@Rygu](https://twitter.com/rygu)
 on Twitter.
 
 ## License
 
-BSD-3 Clause license. Copyright © 2015, Rick Wong. All rights reserved.
+BSD 3-Clause license. Copyright © 2015, Rick Wong. All rights reserved.

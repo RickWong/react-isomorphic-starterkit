@@ -1,12 +1,19 @@
 const React = require("react");
 const Router = require("react-router");
+const ContextHelper = require("./helpers/ContextHelper");
 const routes = require("./views/Routes");
 
 /**
  * Fire-up React Router.
  */
 Router.run(routes, Router.HistoryLocation, (Handler) => {
-	React.render(<Handler />, document.getElementById("react-root"));
+	/**
+	 * Get Client Context passed along by the server, and inject it.
+	 */
+	const clientContext = ContextHelper.getClientContext(window);
+	const ContextualHandler = ContextHelper.injectContext(Handler, clientContext);
+
+	React.render(<ContextualHandler />, document.getElementById("react-root"));
 });
 
 /**
