@@ -21,7 +21,7 @@ module.exports = {
 		loaders: [
 			{include: /\.css$/, loaders: ["style", "css"]},
 			{include: /\.json?$/, loaders: ["json"]},
-			{include: /\.jsx?$/, loaders: ["babel-loader", "jsx?harmony"], exclude: /node_modules/}
+			{include: /\.jsx?$/, loaders: ["babel-loader"], exclude: /node_modules/}
 		]
 	},
 	resolve: {

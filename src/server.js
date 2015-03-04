@@ -3,8 +3,7 @@ const path = require("path");
 const React = require("react");
 const Router = require("react-router");
 const {Server} = require("hapi");
-const ltrim = require("./helpers/ltrim");
-const wrapContext = require("./helpers/wrapContext");
+const ContextMixin = require("./helpers/ContextMixin");
 const routes = require("./views/Routes");
 
 /**
@@ -39,35 +38,27 @@ server.ext("onPreResponse", (request, reply) => {
 
 	Router.run(routes, request.path, (Handler) => {
 		/**
-		 * Prepare a React Context unique per server request.
+		 * Prepare a unique Server Context per request, and inject it.
 		 */
-		const serverContext = {
-			request,
-			waitFor: {},
-			data: {}
-		};
+		const serverContext = ContextMixin.serverContext();
+		serverContext.request = request;
+		const ContextualHandler = ContextMixin.injectContext(Handler, serverContext);
 
 		/**
-		 * Wrap the routed Handler to use the context.
+		 * Fake-render the components without output so they can register context loaders.
 		 */
-		Handler = wrapContext(Handler, serverContext);
-
-		/**
-		 * Fake-render the components without output so they can register waitFor-callbacks.
-		 */
-		React.renderToString(<Handler />);
-
-		const waitForAll = Object.keys(serverContext.waitFor).map((k) => serverContext.waitFor[k]);
+		React.renderToString(<ContextualHandler />);
+		const loaders = ContextMixin.getContextLoaders(serverContext);
 
 		/**
 		 * Wait for all the registered callbacks and render for real, but this time with data.
 		 */
-		async.parallel(waitForAll, (error, results) => {
-			const rendered = React.renderToString(<Handler />);
-			const serverData = JSON.stringify(serverContext.data);
+		async.parallel(loaders, (error, results) => {
+			const rendered = React.renderToString(<ContextualHandler />);
+			const contextData = JSON.stringify(serverContext.contextData);
 			const webserver = process.env.NODE_ENV === "production" ? "" : "//localhost:8080";
 
-			const output = ltrim(
+			const output =
 				`<!doctype html>
 				<html lang="en-us">
 					<head>
@@ -77,11 +68,10 @@ server.ext("onPreResponse", (request, reply) => {
 					</head>
 					<body>
 						<div id="react-root">${rendered}</div>
-						<script>window.SERVER_DATA = ${serverData};</script>
+						<script>window.CONTEXT_DATA = ${contextData};</script>
 						<script src="${webserver}/dist/client.js"></script>
 					</body>
-				</html>`
-			);
+				</html>`;
 
 			reply(output);
 		});

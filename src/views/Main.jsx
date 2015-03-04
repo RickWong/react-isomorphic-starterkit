@@ -1,6 +1,7 @@
 const React = require("react");
-const Style = require("../helpers/Style");
 const Superagent = require("superagent");
+const Style = require("./Style");
+const ContextMixin = require("../helpers/ContextMixin");
 
 /**
  * Main React application entry-point for both the server and client.
@@ -8,16 +9,16 @@ const Superagent = require("superagent");
  * @module Main
  */
 const Main = React.createClass({
-	contextTypes: {
-		request: React.PropTypes.any,
-		waitFor: React.PropTypes.any,
-		data: React.PropTypes.any
-	},
+	mixins: [
+		ContextMixin
+	],
 	getInitialState() {
 		/**
 		 * Must be the same for server and client.
 		 */
-		return {stargazers: this.context.data.stargazers || []};
+		return {
+			stargazers: this.getContext("stargazers") || []
+		};
 	},
 	componentWillMount() {
 		/**
@@ -26,33 +27,23 @@ const Main = React.createClass({
 		if (__SERVER__) {
 			console.log("Hello server");
 
-			if (!this.context.waitFor.github) {
-				this.context.waitFor.github = (callback) => {
-					Superagent.get(
-						"https://api.github.com/repos/RickWong/react-isomorphic-starterkit/stargazers?per_page=500"
-					).
-					end((error, response) => {
-						if (response.body.length) {
-							this.context.data.stargazers = response.body.map((user) => {
-								return {
-									id: user.id,
-									login: user.login,
-									avatar_url: user.avatar_url
-								}
-							});
-						}
-
-						callback(error, response);
-					});
-				};
-			}
-		}
-
-		/**
-		 * Client-only.
-		 */
-		if (__CLIENT__) {
-			console.log("Hello client");
+			this.loadContextOnce("stargazers", (completed) => {
+				Superagent.get(
+					"https://api.github.com/repos/RickWong/react-isomorphic-starterkit/stargazers?per_page=500"
+				).
+				end((error, response) => {
+					if (response.body.length) {
+						this.setContext("stargazers", response.body.map((user) => {
+							return {
+								id: user.id,
+								login: user.login,
+								avatar_url: user.avatar_url
+							}
+						}));
+					}
+					completed(error, response);
+				});
+			});
 		}
 	},
 	componentDidMount() {
@@ -70,10 +61,6 @@ const Main = React.createClass({
 		 * You're not required to use this helper component.
 		 */
 		css: (avatarSize) => `
-			& * {
-				font-family: sans-serif;
-				color: #0df;
-			}
 			& .github {
 				position: absolute;
 				top: 0;
@@ -81,6 +68,8 @@ const Main = React.createClass({
 				border: 0;
 			}
 			& {
+				font-family: sans-serif;
+				color: #0df;
 				padding: 10px 30px 30px;
 				width: 380px;
 				margin: 10px auto;
@@ -114,6 +103,7 @@ const Main = React.createClass({
 					<li>React.js + Router on the client and server</li>
 					<li>React Hot Loader for instant client updates</li>
 					<li>Babel.js automatically compiles ES6</li>
+					<li>ContextMixin to hydrate from server to client</li>
 					<li>Style-component for quick in-component CSS</li>
 					<li>Shrinkwrapped npm dependencies</li>
 				</ul>

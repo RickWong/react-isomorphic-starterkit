@@ -25,7 +25,7 @@ module.exports = {
 			{include: /\.css$/, loaders: ["style", "css"]},
 			{include: /\.json$/, loaders: ["json"]},
 			{include:    /\.jsx?$/,
-				loaders: ["react-hot", "babel-loader", "jsx?harmony"],
+				loaders: ["react-hot", "babel-loader"],
 				exclude: /node_modules/
 			}
 		]

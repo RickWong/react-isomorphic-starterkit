@@ -21,6 +21,7 @@ Isomorphic starterkit with server-side React rendering using
 - React.js + Router on the client and server
 - React Hot Loader for instant client updates
 - Babel.js automatically compiles ES6
+- ContextMixin to hydrate from server to client 
 - Style-component for quick in-component CSS
 - Shrinkwrapped npm dependencies
 
@@ -47,9 +48,9 @@ the server-side rendering and client-side hot updates.
 
 ## Community
 
-Let's start one together! After you Star this project, follow me [@Rygu](https://twitter.com/rygu)
+Let's start one together! After you ★Star this project, follow me [@Rygu](https://twitter.com/rygu)
 on Twitter.
 
 ## License
 
-BSD-3 Clause license. Copyright © 2015, Rick Wong. All rights reserved.
+BSD 3-Clause license. Copyright © 2015, Rick Wong. All rights reserved.
