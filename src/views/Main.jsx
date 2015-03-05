@@ -21,22 +21,34 @@ const Main = React.createClass({
 		 * load the context data like here...
 		 */
 		if (__SERVER__) {
-			this.loadContextOnce("stargazers", (completed) => {
+			let stargazers = [];
+
+			let loadStargazersFn = (completed, page) => {
+				page = page || 1;
+
 				Superagent.get(
-					"https://api.github.com/repos/RickWong/react-isomorphic-starterkit/stargazers?per_page=500"
+					`https://api.github.com/repos/RickWong/react-isomorphic-starterkit/stargazers?per_page=100&page=${page}`
 				).
 				end((error, response) => {
 					if (response.body.length) {
-						this.setContext("stargazers", response.body.map((user) => {
+						stargazers = stargazers.concat(response.body.map((user) => {
 							return {
 								id: user.id,
 								login: user.login
 							}
 						}));
 					}
+
+					if (response.body.length >= 100) {
+						return loadStargazersFn(completed, page + 1);
+					}
+
+					this.setContext("stargazers", stargazers);					
 					completed(error, response);
 				});
-			});
+			};
+
+			this.loadContextOnce("stargazers", loadStargazersFn);
 		}
 
 		/**
@@ -106,7 +118,7 @@ const Main = React.createClass({
 	render() {
 		const repositoryUrl = "https://github.com/RickWong/react-isomorphic-starterkit";
 		const avatarSize = 32;
-		const avatarUrl = (id) => `https://avatars.githubusercontent.com/u/${id}?v=3&s=${avatarSize*2}`;
+		const avatarUrl = (id) => `https://avatars.githubusercontent.com/u/${id}?v=3&s=${avatarSize}`;
 
 		return (
 			<Style sheet={Main.css(avatarSize)} namespace="Main">
