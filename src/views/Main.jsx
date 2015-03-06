@@ -30,20 +30,20 @@ const Main = React.createClass({
 					`https://api.github.com/repos/RickWong/react-isomorphic-starterkit/stargazers?per_page=100&page=${page}`
 				).
 				end((error, response) => {
-					if (response.body.length) {
+					if (response && Array.isArray(response.body)) {
 						stargazers = stargazers.concat(response.body.map((user) => {
 							return {
 								id: user.id,
 								login: user.login
-							}
+							};
 						}));
+
+						if (response.body.length >= 100) {
+							return loadStargazersFn(completed, page + 1);
+						}
 					}
 
-					if (response.body.length >= 100) {
-						return loadStargazersFn(completed, page + 1);
-					}
-
-					this.setContext("stargazers", stargazers);					
+					this.setContext("stargazers", stargazers);
 					completed(error, response);
 				});
 			};
