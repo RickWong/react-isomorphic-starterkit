@@ -1,7 +1,7 @@
-const React = require("react");
-const Superagent = require("superagent");
-const Style = require("./Style");
-const ContextHelper = require("../helpers/ContextHelper");
+import React from "react";
+import Superagent from "superagent";
+import Style from "./Style";
+import ContextHelper from "../helpers/ContextHelper";
 
 /**
  * Main React application entry-point for both the server and client.
@@ -17,66 +17,64 @@ const Main = React.createClass({
 	 */
 	getInitialState() {
 		/**
-		 * Server calls this method twice. The 1st pass without context data, but it will let you
-		 * load the context data like here...
-		 */
-		if (__SERVER__) {
-			let stargazers = [];
-
-			let loadStargazersFn = (completed, page) => {
-				page = page || 1;
-
-				Superagent.get(
-					`https://api.github.com/repos/RickWong/react-isomorphic-starterkit/stargazers?per_page=100&page=${page}`
-				).
-				end((error, response) => {
-					if (response && Array.isArray(response.body)) {
-						stargazers = stargazers.concat(response.body.map((user) => {
-							return {
-								id: user.id,
-								login: user.login
-							};
-						}));
-
-						if (response.body.length >= 100) {
-							return loadStargazersFn(completed, page + 1);
-						}
-					}
-
-					this.setContext("stargazers", stargazers);
-					completed(error, response);
-				});
-			};
-
-			this.loadContextOnce("stargazers", loadStargazersFn);
-		}
-
-		/**
-		 * ...Then the 2nd pass will have the loaded context. You MUST return exactly the same on
-		 * the server (2nd pass) and the client for isomorphic React to work.
+		 * Server renders this component twice. The 1st pass without context data, but it will let
+		 * you load the context data. Then the 2nd pass will have the loaded context. You MUST
+		 * return exactly the same initial state on the server (2nd pass), as on the client.
 		 */
 		return {
 			stargazers: this.getContext("stargazers") || []
 		};
 	},
 	/**
+	 * Server and client. Use Superagent to retrieve the list of GitHub stargazers.
+	 */
+	loadStargazersFn (untilAllLoaded, currentPage, completedFn) {
+		Superagent.get(
+			`https://api.github.com/repos/RickWong/react-isomorphic-starterkit/stargazers?per_page=100&page=${currentPage}`
+		).
+		end((error, response) => {
+			let stargazers = this.getContext("stargazers") || [];
+
+			if (response && Array.isArray(response.body)) {
+				stargazers = stargazers.concat(response.body.map((user) => {
+					return {
+						id: user.id,
+						login: user.login
+					};
+				}));
+
+				this.setContext("stargazers", stargazers);
+
+				if (untilAllLoaded && response.body.length >= 100) {
+					return this.loadStargazersFn(untilAllLoaded, currentPage + 1, completedFn);
+				}
+			}
+
+			completedFn(error, stargazers);
+		});
+	},
+	/**
 	 * Server and client.
 	 */
 	componentWillMount() {
+		/**
+		 * Use context loader here on the server.
+		 */
 		if (__SERVER__) {
-			console.log("Hello server");
+			// Load the first 100 stargazers on the server.
+			this.loadContextOnce("stargazers", (completedFn) => {
+				this.loadStargazersFn(false, 1, completedFn);
+			});
 		}
 
+		/**
+		 * Simply use this.setState() on the client.
+		 */
 		if (__CLIENT__) {
-			console.log("Hello client");
-		}
-	},
-	/**
-	 * Client-only.
-	 */
-	componentDidMount() {
-		if (__CLIENT__) {
-			console.log("Hello client again");
+			// Load the rest of the stargazers on the client.
+			this.loadStargazersFn(true, 2, (error, stargazers) => {
+				this.setState({stargazers});
+			});
 		}
 	},
 	statics: {

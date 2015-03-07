@@ -1,5 +1,5 @@
-const webpack = require("webpack");
-const config = require("./webpack.client.js");
+var webpack = require("webpack");
+var config = require("./webpack.client.js");
 
 config.cache = true;
 config.debug = true;
@@ -19,6 +19,7 @@ config.plugins = [
 	new webpack.HotModuleReplacementPlugin(),
 	new webpack.NoErrorsPlugin()
 ];
+
 config.devServer = {
 	publicPath:  "http://localhost:8080/dist/",
 	contentBase: "./static",

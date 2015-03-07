@@ -1,13 +1,10 @@
-const React = require("react");
-const Router = require("react-router");
-const Main = require("./Main");
-
-const {Route, DefaultRoute} = Router;
+import React from "react";
+import Router, {Route, DefaultRoute} from "react-router";
+import Main from "./Main";
 
 /**
  * The React Routes for both the server and the client.
  *
- * @type {ReactElement}
  * @module Routes
  */
 const Routes = (

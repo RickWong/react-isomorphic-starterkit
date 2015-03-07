@@ -1,4 +1,4 @@
-const React = require("react");
+import React from "react";
 
 let refCounter = 0;
 

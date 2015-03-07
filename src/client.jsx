@@ -1,7 +1,7 @@
-const React = require("react");
-const Router = require("react-router");
-const ContextHelper = require("./helpers/ContextHelper");
-const routes = require("./views/Routes");
+import React from "react";
+import Router from "react-router";
+import ContextHelper from "./helpers/ContextHelper";
+import routes from "./views/Routes";
 
 /**
  * Fire-up React Router.

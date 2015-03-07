@@ -1,15 +1,13 @@
-const async = require("async");
-const path = require("path");
-const React = require("react");
-const Router = require("react-router");
-const {Server} = require("hapi");
-const ContextHelper = require("./helpers/ContextHelper");
-const routes = require("./views/Routes");
+import async from "async";
+import {Server} from "hapi";
+import path from "path";
+import React from "react";
+import Router from "react-router";
+import ContextHelper from "./helpers/ContextHelper";
+import routes from "./views/Routes";
 
 /**
  * Start Hapi server on port 8000.
- *
- * @type {Server}
  */
 const server = new Server();
 

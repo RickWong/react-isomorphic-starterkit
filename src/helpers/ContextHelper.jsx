@@ -1,4 +1,4 @@
-const React = require("react");
+import React from "react";
 
 /**
  * @module ContextMixin
@@ -73,6 +73,7 @@ const ContextHelper = {
 	},
 	getClientContext (window) {
 		return {
+			contextLoaders: {},
 			contextData: window.CONTEXT_DATA || {}
 		};
 	}

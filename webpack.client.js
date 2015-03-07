@@ -1,5 +1,5 @@
-const webpack = require("webpack");
-const path = require("path");
+var webpack = require("webpack");
+var path = require("path");
 
 module.exports = {
 	target:  "web",
@@ -22,15 +22,11 @@ module.exports = {
 	],
 	module:  {
 		loaders: [
-			{include: /\.css$/, loaders: ["style", "css"]},
-			{include: /\.json$/, loaders: ["json"]},
-			{include:    /\.jsx?$/,
-				loaders: ["react-hot", "babel-loader"],
-				exclude: /node_modules/
-			}
+			{include: /\.json$/, loaders: ["json-loader"]},
+			{include: /\.jsx?$/, loaders: ["react-hot", "babel-loader"], exclude: /node_modules/}
 		]
 	},
 	resolve: {
-		extensions: ["", ".jsx", ".js"]
+		extensions: ["", ".json", ".jsx", ".js"]
 	}
 };

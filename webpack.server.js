@@ -1,11 +1,11 @@
-const webpack = require("webpack");
-const path = require("path");
+var webpack = require("webpack");
+var path = require("path");
 
 module.exports = {
 	target:  "node",
 	cache:   false,
 	context: __dirname,
-	devtool: "hidden-source-map",
+	devtool: false,
 	entry:   ["./src/server"],
 	output:  {
 		path:     path.join(__dirname, "dist"),
@@ -19,13 +19,12 @@ module.exports = {
 	],
 	module:  {
 		loaders: [
-			{include: /\.css$/, loaders: ["style", "css"]},
-			{include: /\.json?$/, loaders: ["json"]},
+			{include: /\.json$/, loaders: ["json-loader"]},
 			{include: /\.jsx?$/, loaders: ["babel-loader"], exclude: /node_modules/}
 		]
 	},
 	resolve: {
-		extensions: ["", ".jsx", ".js"]
+		extensions: ["", ".json", ".jsx", ".js"]
 	},
 	node:    {
 		__dirname: true,
