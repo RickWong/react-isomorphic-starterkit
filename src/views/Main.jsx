@@ -1,6 +1,6 @@
 import React from "react";
+import InlineCss from "react-inline-css";
 import Superagent from "superagent";
-import Style from "./Style";
 import ContextHelper from "../helpers/ContextHelper";
 
 /**
@@ -79,7 +79,7 @@ const Main = React.createClass({
 	},
 	statics: {
 		/**
-		 * <Style> component allows you to write basic CSS for your component. Target
+		 * <InlineCss> component allows you to write basic CSS for your component. Target
 		 * your component with `&` and its children with `& selectors`. Be specific.
 		 * You're not required to use this helper component.
 		 */
@@ -119,7 +119,7 @@ const Main = React.createClass({
 		const avatarUrl = (id) => `https://avatars.githubusercontent.com/u/${id}?v=3&s=${avatarSize}`;
 
 		return (
-			<Style sheet={Main.css(avatarSize)} namespace="Main">
+			<InlineCss stylesheet={Main.css(avatarSize)} namespace="Main">
 				<a className="github" href={repositoryUrl}>
 					<img src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" />
 				</a>
@@ -151,7 +151,7 @@ const Main = React.createClass({
 						<img className="avatar" src={avatarUrl(0)} alt="you?" />
 					</a>
 				</p>
-			</Style>
+			</InlineCss>
 		);
 	}
 });

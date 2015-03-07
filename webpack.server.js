@@ -20,6 +20,7 @@ module.exports = {
 	module:  {
 		loaders: [
 			{include: /\.json$/, loaders: ["json-loader"]},
+			{include: /\.jsx$/, loaders: ["babel-loader"]},
 			{include: /\.jsx?$/, loaders: ["babel-loader"], exclude: /node_modules/}
 		]
 	},

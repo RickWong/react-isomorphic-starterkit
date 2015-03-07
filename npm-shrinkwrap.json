@@ -1093,6 +1093,11 @@
         }
       }
     },
+    "react-inline-css": {
+      "version": "1.0.0",
+      "from": "react-inline-css@1.0.0",
+      "resolved": "https://registry.npmjs.org/react-inline-css/-/react-inline-css-1.0.0.tgz"
+    },
     "react-router": {
       "version": "0.12.4",
       "from": "react-router@0.12.4",

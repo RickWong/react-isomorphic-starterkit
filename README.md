@@ -14,7 +14,7 @@ Isomorphic starterkit with server-side React rendering using
 [react.js](https://facebook.github.io/react), 
 [react-router](https://github.com/rackt/react-router), 
 [react-hot-loader](https://gaearon.github.io/react-hot-loader), 
-[reactstyle](https://github.com/RickWong/ReactStyle)
+[react-inline-css](https://github.com/RickWong/react-inline-css)
 
 ## Features
 

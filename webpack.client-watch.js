@@ -20,6 +20,14 @@ config.plugins = [
 	new webpack.NoErrorsPlugin()
 ];
 
+config.module = {
+	loaders: [
+		{include: /\.json$/, loaders: ["json-loader"]},
+		{include: /\.jsx$/, loaders: ["babel-loader"]},
+		{include: /\.jsx?$/, loaders: ["react-hot", "babel-loader"], exclude: /node_modules/}
+	]
+};
+
 config.devServer = {
 	publicPath:  "http://localhost:8080/dist/",
 	contentBase: "./static",
