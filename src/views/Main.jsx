@@ -103,12 +103,7 @@ const Main = React.createClass({
 				width: ${avatarSize}px;
 				height: ${avatarSize}px;
 				margin: 0 2px 2px 0;
-			}
-			& .you {
-				opacity: .3;
-				transition: opacity .3s ease-out;
-			}
-			&:hover .you {opacity: 1;}`
+			}`
 	},
 	/**
 	 * Server and client.
@@ -144,10 +139,10 @@ const Main = React.createClass({
 				</p>
 				<h3>Community</h3>
 				<p>
+					<a href={repositoryUrl} title="you here? star us!">
 					{this.state.stargazers.map((user) => {
 						return <img key={user.id} className="avatar" src={avatarUrl(user.id)} title={user.login} />;
 					})}
-					<a href={repositoryUrl} className="you" title="you here? star us!">
 						<img className="avatar" src={avatarUrl(0)} alt="you?" />
 					</a>
 				</p>
