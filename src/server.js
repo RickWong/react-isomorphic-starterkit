@@ -1,6 +1,5 @@
 import async from "async";
 import {Server} from "hapi";
-import path from "path";
 import React from "react";
 import Router from "react-router";
 import ContextHelper from "./helpers/ContextHelper";

@@ -1,7 +1,7 @@
 {
   "name": "react-isomorphic-starterkit",
   "description": "Isomorphic starterkit with server-side React rendering.",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "license": "BSD-3",
   "repository": {
     "type": "git",
@@ -19,11 +19,14 @@
   ],
   "main": "dist/index",
   "scripts": {
-    "start": "eval 'supervisor dist/server >tmp/supervisor.log 2>&1 & SUPERVISOR_PID=$!';     sleep 1;      open http://localhost:8000;       tail -f tmp/*.log;     kill $SUPERVISOR_PID;",
-    "build": "eval 'webpack -cv --display-error-details --config webpack.server.js &';   webpack -cv --display-error-details --config webpack.client.js;",
-    "watch-server": "webpack -wcv --display-error-details --config webpack.server-watch.js",
-    "watch-client": "webpack -cv --display-error-details --config webpack.client-watch.js && webpack-dev-server --config webpack.client-watch.js",
-    "watch": "eval 'npm run watch-server >tmp/server.log 2>&1 & SERVER_PID=$!';      eval 'npm run watch-client >tmp/client.log 2>&1 & CLIENT_PID=$!';     sleep 5;    npm run start;     kill $CLIENT_PID $SERVER_PID;"
+    "localhost": "sleep 1; open http://localhost:8000",
+    "start": "sleep 6; concurrent 'supervisor dist/server' 'npm run localhost'",
+    "build-server": "webpack --verbose --colors --display-error-details --config webpack.server.js",
+    "build-client": "webpack --verbose --colors --display-error-details --config webpack.client.js",
+    "build": "concurrent --kill-others 'npm run build-client' 'npm run build-server'",
+    "watch-server": "webpack --verbose --colors --display-error-details --watch --config webpack.server-watch.js",
+    "watch-client": "webpack --verbose --colors --display-error-details --config webpack.client-watch.js && webpack-dev-server --config webpack.client-watch.js",
+    "watch": "concurrent --kill-others 'npm run watch-client' 'npm run watch-server' 'npm run start'"
   },
   "dependencies": {
     "async": "0.9.0",

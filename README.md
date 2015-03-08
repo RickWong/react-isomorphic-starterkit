@@ -35,7 +35,7 @@ It just works out-of-the-box.
 	git clone https://github.com/RickWong/react-isomorphic-starterkit.git
 	cd react-isomorphic-starterkit
 	
-	npm install -g supervisor webpack webpack-dev-server
+	npm install -g supervisor webpack webpack-dev-server concurrently
 	npm install
 	npm run watch     # yes, one command for server and client development!
 	
