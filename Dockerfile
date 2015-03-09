@@ -7,11 +7,12 @@ RUN apt-get update
 # (Just running apt-get install -y nodejs would install 0.10.25 which is too old)
 RUN apt-get install -y curl && curl -sL https://deb.nodesource.com/setup | sudo bash -
 
-# install nodejs, npm and git
-RUN apt-get install -y nodejs git git-core
+# install nodejs, npm
+RUN apt-get install -y nodejs 
 
 # install react-isomorphic-starterkit
-RUN git clone https://github.com/RickWong/react-isomorphic-starterkit.git
+#RUN git clone https://github.com/RickWong/react-isomorphic-starterkit.git
+COPY . react-isomorphic-starterkit
 RUN cd react-isomorphic-starterkit && npm install -g supervisor webpack webpack-dev-server concurrently
 RUN cd react-isomorphic-starterkit && npm install
 
