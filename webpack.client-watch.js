@@ -24,7 +24,7 @@ config.module = {
 	loaders: [
 		{include: /\.json$/, loaders: ["json-loader"]},
 		{include: /\.jsx$/, loaders: ["babel-loader"]},
-		{include: /\.jsx?$/, loaders: ["react-hot", "babel-loader"], exclude: /node_modules/}
+		{include: /\.js$/, loaders: ["react-hot", "babel-loader"], exclude: /node_modules/}
 	]
 };
 
