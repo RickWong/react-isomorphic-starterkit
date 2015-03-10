@@ -1,6 +1,6 @@
 {
   "name": "react-isomorphic-starterkit",
-  "version": "1.1.2",
+  "version": "1.2.1",
   "dependencies": {
     "async": {
       "version": "0.9.0",
@@ -8,9 +8,9 @@
       "resolved": "https://registry.npmjs.org/async/-/async-0.9.0.tgz"
     },
     "babel-core": {
-      "version": "4.7.1",
-      "from": "babel-core@4.7.1",
-      "resolved": "https://registry.npmjs.org/babel-core/-/babel-core-4.7.1.tgz",
+      "version": "4.7.8",
+      "from": "babel-core@4.7.8",
+      "resolved": "https://registry.npmjs.org/babel-core/-/babel-core-4.7.8.tgz",
       "dependencies": {
         "acorn-babel": {
           "version": "0.11.1-37",
@@ -44,7 +44,7 @@
               "dependencies": {
                 "ansi-regex": {
                   "version": "1.1.1",
-                  "from": "ansi-regex@>=1.1.0 <2.0.0",
+                  "from": "ansi-regex@>=1.0.0 <2.0.0",
                   "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-1.1.1.tgz"
                 },
                 "get-stdin": {
@@ -61,7 +61,7 @@
               "dependencies": {
                 "ansi-regex": {
                   "version": "1.1.1",
-                  "from": "ansi-regex@>=1.1.0 <2.0.0",
+                  "from": "ansi-regex@>=1.0.0 <2.0.0",
                   "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-1.1.1.tgz"
                 }
               }
@@ -1072,14 +1072,14 @@
       "resolved": "https://registry.npmjs.org/react-a11y/-/react-a11y-0.0.6.tgz"
     },
     "react-hot-loader": {
-      "version": "1.1.7",
-      "from": "react-hot-loader@1.1.7",
-      "resolved": "https://registry.npmjs.org/react-hot-loader/-/react-hot-loader-1.1.7.tgz",
+      "version": "1.2.1",
+      "from": "react-hot-loader@1.2.1",
+      "resolved": "https://registry.npmjs.org/react-hot-loader/-/react-hot-loader-1.2.1.tgz",
       "dependencies": {
         "react-hot-api": {
-          "version": "0.3.7",
-          "from": "react-hot-api@>=0.3.7 <0.4.0",
-          "resolved": "https://registry.npmjs.org/react-hot-api/-/react-hot-api-0.3.7.tgz"
+          "version": "0.4.3",
+          "from": "react-hot-api@>=0.4.3 <0.5.0",
+          "resolved": "https://registry.npmjs.org/react-hot-api/-/react-hot-api-0.4.3.tgz"
         },
         "source-map": {
           "version": "0.1.40",
@@ -1096,8 +1096,8 @@
       }
     },
     "react-inline-css": {
-      "version": "1.0.1",
-      "from": "react-inline-css@1.0.1"
+      "version": "1.0.2",
+      "from": "react-inline-css@1.0.2"
     },
     "react-router": {
       "version": "0.12.4",
