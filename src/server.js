@@ -11,7 +11,7 @@ import routes from "./views/Routes";
 const server = new Server();
 
 server.connection({
-	port: 8000
+	port: process.env.PORT || 8000
 });
 
 /**
