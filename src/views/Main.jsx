@@ -119,7 +119,7 @@ const Main = React.createClass({
 					<img src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" />
 				</a>
 				<h1>
-					<img src="/favicon.ico" /> <br/> Welcome to React Isomorphic Starterkit.
+					<img src="/favicon.ico" alt="icon" /> <br/> Welcome to React Isomorphic Starterkit.
 				</h1>
 				<h3>Features</h3>
 				<ul>
@@ -131,6 +131,7 @@ const Main = React.createClass({
 					<li>Babel.js automatically compiles ES6</li>
 					<li>Context-helper to preload on server to client</li>
 					<li>Style-component for quick in-component CSS</li>
+					<li>Accessibility hints from react-a11y</li>
 					<li>Shrinkwrapped npm dependencies</li>
 				</ul>
 				<p>
@@ -141,7 +142,7 @@ const Main = React.createClass({
 				<p>
 					<a href={repositoryUrl} title="you here? star us!">
 					{this.state.stargazers.map((user) => {
-						return <img key={user.id} className="avatar" src={avatarUrl(user.id)} title={user.login} />;
+						return <img key={user.id} className="avatar" src={avatarUrl(user.id)} title={user.login} alt={user.login} />;
 					})}
 						<img className="avatar" src={avatarUrl(0)} alt="you?" />
 					</a>

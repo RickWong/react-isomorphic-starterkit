@@ -4,6 +4,13 @@ import ContextHelper from "./helpers/ContextHelper";
 import routes from "./views/Routes";
 
 /**
+ * Enable Accessibility warnings on the client.
+ */
+if (process.env.NODE_ENV !== "production") {
+	require("react-a11y")();
+}
+
+/**
  * Fire-up React Router.
  */
 Router.run(routes, Router.HistoryLocation, (Handler) => {

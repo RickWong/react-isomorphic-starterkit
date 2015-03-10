@@ -1,9 +1,8 @@
-![screenshot](https://i.imgur.com/gakzTpQ.png?1)
+![screenshot](https://i.imgur.com/IoZYIwb.png?1)
 
 # React Isomorphic Starterkit
 
 Isomorphic starterkit with server-side React rendering using 
-[node](https://iojs.org), 
 [npm](https://www.npmjs.com/), 
 [supervisor](https://www.npmjs.com/package/supervisor), 
 [webpack](https://webpack.github.io/), 
@@ -14,6 +13,7 @@ Isomorphic starterkit with server-side React rendering using
 [react.js](https://facebook.github.io/react), 
 [react-router](https://github.com/rackt/react-router), 
 [react-hot-loader](https://gaearon.github.io/react-hot-loader), 
+[react-a11y](https://github.com/rackt/react-a11y),
 [react-inline-css](https://github.com/RickWong/react-inline-css)
 
 ## Features
@@ -26,6 +26,7 @@ Isomorphic starterkit with server-side React rendering using
 - Babel.js automatically compiles ES6
 - Context-helper to preload on server to client
 - Style-component for quick in-component CSS
+- Accessibility hints from react-a11y
 - Shrinkwrapped npm dependencies
 
 It just works out-of-the-box.
