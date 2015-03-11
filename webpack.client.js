@@ -23,8 +23,8 @@ module.exports = {
 	module:  {
 		loaders: [
 			{include: /\.json$/, loaders: ["json-loader"]},
-			{include: /\.jsx$/, loaders: ["babel-loader"]},
-			{include: /\.js$/, loaders: ["babel-loader"], exclude: /node_modules/}
+			{include: /\.jsx$/, loaders: ["babel-loader?experimental&optional=runtime"]},
+			{include: /\.js$/, loaders: ["babel-loader?experimental&optional=runtime"], exclude: /node_modules/}
 		]
 	},
 	resolve: {
