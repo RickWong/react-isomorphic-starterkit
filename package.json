@@ -1,7 +1,7 @@
 {
   "name": "react-isomorphic-starterkit",
   "description": "Isomorphic starterkit with server-side React rendering.",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "license": "BSD-3",
   "repository": {
     "type": "git",
@@ -24,7 +24,7 @@
     "browser": "sleep 6; concurrent 'npm run start' 'npm run localhost'",
     "build-server": "webpack --verbose --colors --display-error-details --config webpack.server.js",
     "build-client": "webpack --verbose --colors --display-error-details --config webpack.client.js",
-    "build": "concurrent --kill-others 'npm run build-client' 'npm run build-server'",
+    "build": "concurrent 'npm run build-client' 'npm run build-server'",
     "watch-server": "webpack --verbose --colors --display-error-details --watch --config webpack.server-watch.js",
     "watch-client": "webpack --verbose --colors --display-error-details --config webpack.client-watch.js && webpack-dev-server --config webpack.client-watch.js",
     "watch": "concurrent --kill-others 'npm run watch-client' 'npm run watch-server' 'npm run browser'"
