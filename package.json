@@ -21,7 +21,7 @@
   "scripts": {
     "start": "supervisor dist/server",
     "localhost": "sleep 1; which open && open http://localhost:8000",
-    "browser": "sleep 6; concurrent 'npm run start' 'npm run localhost'",
+    "browser": "sleep 6; concurrent --kill-others 'npm run start' 'npm run localhost'",
     "build-server": "webpack --verbose --colors --display-error-details --config webpack.server.js",
     "build-client": "webpack --verbose --colors --display-error-details --config webpack.client.js",
     "build": "concurrent 'npm run build-client' 'npm run build-server'",

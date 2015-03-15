@@ -1,3 +1,4 @@
+import Async from "async";
 import React from "react";
 
 /**
@@ -17,7 +18,7 @@ const ContextMixin = {
 	},
 	getContext (key) {
 		if (!this.context) {
-			return null;
+			return undefined;
 		}
 
 		if (key === undefined) {
@@ -45,14 +46,14 @@ const ContextHelper = {
 			(k) => context.contextLoaders[k]
 		);
 	},
-	injectContext (Component, context) {
+	injectContext (Component, context, callbackFn) {
 		let childContextTypes = {};
 
 		Object.keys(context).map((key) => {
 			childContextTypes[key] = React.PropTypes.any
 		});
 
-		return React.createClass({
+		const ContextualComponent = React.createClass({
 			childContextTypes,
 			getChildContext () {
 				return context;
@@ -60,6 +61,21 @@ const ContextHelper = {
 			render () {
 				return <Component />;
 			}
+		});
+
+		if (__CLIENT__) {
+			callbackFn(ContextualComponent);
+			return;
+		}
+
+		/**
+		 * Fake-render the components without output so they can register context loaders.
+		 */
+		React.renderToString(<ContextualComponent />);
+		const contextLoaders = ContextHelper.getContextLoaders(context);
+
+		Async.parallel(contextLoaders, (error, result) => {
+			callbackFn(ContextualComponent);
 		});
 	},
 	getServerContext () {

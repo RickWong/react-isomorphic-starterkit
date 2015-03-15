@@ -1,9 +1,8 @@
-import async from "async";
 import {Server} from "hapi";
 import React from "react";
 import Router from "react-router";
-import ContextHelper from "./helpers/ContextHelper";
-import routes from "./views/Routes";
+import ContextHelper from "helpers/ContextHelper";
+import routes from "views/Routes";
 
 /**
  * Start Hapi server on port 8000.
@@ -33,29 +32,23 @@ server.ext("onPreResponse", (request, reply) => {
 		return reply.continue();
 	}
 
-	Router.run(routes, request.path, (Handler) => {
+	Router.run(routes, request.path, (Handler, router) => {
 		/**
 		 * Prepare a unique Server Context per request, and inject it.
 		 */
-		const serverContext = ContextHelper.getServerContext();
-		serverContext.request = request;
-		const ContextualHandler = ContextHelper.injectContext(Handler, serverContext);
+		const context = ContextHelper.getServerContext();
+		context.request = request;
+		context.router = router;
 
-		/**
-		 * Fake-render the components without output so they can register context loaders.
-		 */
-		React.renderToString(<ContextualHandler />);
-		const loaders = ContextHelper.getContextLoaders(serverContext);
-
-		/**
-		 * Wait for all the registered callbacks and render for real, but this time with data.
-		 */
-		async.parallel(loaders, (error, results) => {
+		ContextHelper.injectContext(Handler, context, (ContextualHandler) => {
+			/**
+			 * Wait for all the registered callbacks and render for real, but this time with data.
+			 */
 			const rendered = React.renderToString(<ContextualHandler />);
-			const contextData = JSON.stringify(serverContext.contextData);
+			const contextData = JSON.stringify(context.contextData);
 			const webserver = process.env.NODE_ENV === "production" ? "" : "//localhost:8080";
 
-			const output =
+			const output = (
 				`<!doctype html>
 				<html lang="en-us">
 					<head>
@@ -68,7 +61,8 @@ server.ext("onPreResponse", (request, reply) => {
 						<script>window.CONTEXT_DATA = ${contextData};</script>
 						<script src="${webserver}/dist/client.js"></script>
 					</body>
-				</html>`;
+				</html>`
+			);
 
 			reply(output);
 		});

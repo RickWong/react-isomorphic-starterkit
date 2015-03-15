@@ -1,14 +1,14 @@
 import React from "react";
 import InlineCss from "react-inline-css";
 import Superagent from "superagent";
-import ContextHelper from "../helpers/ContextHelper";
+import ContextHelper from "helpers/ContextHelper";
 
 /**
  * Main React application entry-point for both the server and client.
  *
  * @class Main
  */
-export default React.createClass({
+const Main = React.createClass({
 	mixins: [
 		ContextHelper.Mixin
 	],
@@ -151,3 +151,5 @@ export default React.createClass({
 		);
 	}
 });
+
+export default Main;

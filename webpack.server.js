@@ -25,10 +25,14 @@ module.exports = {
 		]
 	},
 	resolve: {
+		modulesDirectories: [
+			"src",
+			"node_modules",
+			"web_modules"
+		],
 		extensions: ["", ".json", ".jsx", ".js"]
 	},
 	node:    {
-		__dirname: true,
-		fs:        'empty'
+		__dirname: true
 	}
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import Router from "react-router";
-import ContextHelper from "./helpers/ContextHelper";
-import routes from "./views/Routes";
+import ContextHelper from "helpers/ContextHelper";
+import routes from "views/Routes";
 
 /**
  * Enable Accessibility warnings on the client.
@@ -17,10 +17,11 @@ Router.run(routes, Router.HistoryLocation, (Handler) => {
 	/**
 	 * Get Client Context passed along by the server, and inject it.
 	 */
-	const clientContext = ContextHelper.getClientContext(window);
-	const ContextualHandler = ContextHelper.injectContext(Handler, clientContext);
+	const context = ContextHelper.getClientContext(window);
 
-	React.render(<ContextualHandler />, document.getElementById("react-root"));
+	ContextHelper.injectContext(Handler, context, (ContextualHandler) => {
+		React.render(<ContextualHandler />, document.getElementById("react-root"));
+	});
 });
 
 /**
