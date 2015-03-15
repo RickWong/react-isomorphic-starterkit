@@ -5,12 +5,10 @@ import Main from "./Main";
 /**
  * The React Routes for both the server and the client.
  *
- * @module Routes
+ * @class Routes
  */
-const Routes = (
+export default (
 	<Route path="/">
 		<DefaultRoute handler={Main} />
 	</Route>
 );
-
-export default Routes;

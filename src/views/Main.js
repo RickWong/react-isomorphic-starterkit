@@ -6,9 +6,9 @@ import ContextHelper from "../helpers/ContextHelper";
 /**
  * Main React application entry-point for both the server and client.
  *
- * @module Main
+ * @class Main
  */
-const Main = React.createClass({
+export default React.createClass({
 	mixins: [
 		ContextHelper.Mixin
 	],
@@ -151,5 +151,3 @@ const Main = React.createClass({
 		);
 	}
 });
-
-export default Main;

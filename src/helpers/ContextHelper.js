@@ -1,7 +1,7 @@
 import React from "react";
 
 /**
- * @module ContextMixin
+ * @class ContextMixin
  */
 const ContextMixin = {
 	contextTypes: {
@@ -36,7 +36,7 @@ const ContextMixin = {
 };
 
 /**
- * @module ContextHelper
+ * @class ContextHelper
  */
 const ContextHelper = {
 	Mixin: ContextMixin,
