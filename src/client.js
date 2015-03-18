@@ -24,7 +24,6 @@ Router.run(routes, Router.HistoryLocation, (Handler) => {
 	});
 });
 
-
 /**
  * Detect whether the server-side render has been discarded due to an invalid checksum.
  */

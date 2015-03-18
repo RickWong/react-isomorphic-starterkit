@@ -3,7 +3,7 @@ var config = require("./webpack.server.js");
 
 config.cache = true;
 config.debug = true;
-config.devtool = "source-map";
+config.devtool = "eval";
 
 config.plugins = [
 	new webpack.DefinePlugin({__CLIENT__: false, __SERVER__: true}),

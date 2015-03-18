@@ -8,10 +8,8 @@ import routes from "views/Routes";
  * Start Hapi server on port 8000.
  */
 const server = new Server();
-
-server.connection({
-	port: process.env.PORT || 8000
-});
+server.connection({port: process.env.PORT || 8000});
+server.start();
 
 /**
  * Attempt to serve static requests from the public folder.
@@ -68,5 +66,3 @@ server.ext("onPreResponse", (request, reply) => {
 		});
 	})
 });
-
-server.start();
