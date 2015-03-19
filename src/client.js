@@ -1,6 +1,6 @@
 import React from "react";
+import ReactAsync from "react-async";
 import Router from "react-router";
-import ContextHelper from "helpers/ContextHelper";
 import routes from "views/Routes";
 
 /**
@@ -14,14 +14,7 @@ if (process.env.NODE_ENV !== "production") {
  * Fire-up React Router.
  */
 Router.run(routes, Router.HistoryLocation, (Handler) => {
-	/**
-	 * Get Client Context passed along by the server, and inject it.
-	 */
-	const context = ContextHelper.getClientContext(window);
-
-	ContextHelper.injectContext(Handler, context, (ContextualHandler) => {
-		React.render(<ContextualHandler />, document.getElementById("react-root"));
-	});
+	React.render(<Handler />, document.getElementById("react-root"));
 });
 
 /**
@@ -30,7 +23,7 @@ Router.run(routes, Router.HistoryLocation, (Handler) => {
 if (process.env.NODE_ENV !== "production") {
 	const reactRoot = window.document.getElementById("react-root");
 
-	if (!reactRoot || !reactRoot.firstChild ||
+	if (!reactRoot || !reactRoot.firstChild || !reactRoot.firstChild.attributes ||
 	    !reactRoot.firstChild.attributes["data-react-checksum"]) {
 		console.error("Server-side React render was discarded. Make sure that your initial render does not contain any client-side code.");
 	}

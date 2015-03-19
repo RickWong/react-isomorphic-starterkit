@@ -1,7 +1,7 @@
 import React from "react";
+import ReactAsync from "react-async";
 import InlineCss from "react-inline-css";
 import Superagent from "superagent";
-import ContextHelper from "helpers/ContextHelper";
 
 /**
  * Main React application entry-point for both the server and client.
@@ -10,74 +10,57 @@ import ContextHelper from "helpers/ContextHelper";
  */
 const Main = React.createClass({
 	mixins: [
-		ContextHelper.Mixin
+		ReactAsync.Mixin
 	],
 	/**
 	 * Server and client.
 	 */
-	getInitialState() {
+	getInitialStateAsync (completedFn) {
 		/**
-		 * Server renders this component twice. The 1st pass without context data, but it will let
-		 * you load the context data. Then the 2nd pass will have the loaded context. You MUST
-		 * return exactly the same initial state on the server (2nd pass), as on the client.
-		 */
-		return {
-			stargazers: this.getContext("stargazers") || []
-		};
-	},
-	/**
-	 * Server and client. Use Superagent to retrieve the list of GitHub stargazers.
-	 */
-	loadStargazersFn (untilAllLoaded, currentPage, completedFn) {
-		Superagent.get(
-			`https://api.github.com/repos/RickWong/react-isomorphic-starterkit/stargazers?per_page=100&page=${currentPage}`
-		).
-		end((error, response) => {
-			let stargazers = this.getContext("stargazers") || [];
-
-			if (response && Array.isArray(response.body)) {
-				stargazers = stargazers.concat(response.body.map((user) => {
-					return {
-						id: user.id,
-						login: user.login
-					};
-				}));
-
-				this.setContext("stargazers", stargazers);
-
-				if (untilAllLoaded && response.body.length >= 100) {
-					return this.loadStargazersFn(untilAllLoaded, currentPage + 1, completedFn);
-				}
-			}
-
-			completedFn(error, stargazers);
-		});
+		  * Load the first 100 stargazers on the server.
+		  */
+		if (__SERVER__) {
+			Main.loadStargazersFn([], false, 1, completedFn);
+		}
 	},
 	/**
 	 * Server and client.
 	 */
 	componentWillMount() {
-		/**
-		 * Use context loader here on the server.
-		 */
-		if (__SERVER__) {
-			// Load the first 100 stargazers on the server.
-			this.loadContextOnce("stargazers", (completedFn) => {
-				this.loadStargazersFn(false, 1, completedFn);
-			});
-		}
-
-		/**
-		 * Simply use this.setState() on the client.
-		 */
 		if (__CLIENT__) {
-			// Load the rest of the stargazers on the client.
-			this.loadStargazersFn(true, 2, (error, stargazers) => {
-				this.setState({stargazers});
+			/**
+			 * Load the rest of the stargazers on the client.
+			 */
+			Main.loadStargazersFn(this.state.stargazers || [], true, 2, (error, state) => {
+				this.setState(state);
 			});
 		}
 	},
 	statics: {
+		/**
+		 * Use Superagent to retrieve the list of GitHub stargazers.
+		 */
+		loadStargazersFn (stargazers, untilAllLoaded, currentPage, completedFn) {
+			Superagent.get(
+				`https://api.github.com/repos/RickWong/react-isomorphic-starterkit/stargazers?per_page=100&page=${currentPage}`
+			).
+			end((error, response) => {
+				if (response && Array.isArray(response.body)) {
+					stargazers = stargazers.concat(response.body.map((user) => {
+						return {
+							id: user.id,
+							login: user.login
+						};
+					}));
+
+					if (untilAllLoaded && response.body.length >= 100) {
+						return Main.loadStargazersFn(stargazers, untilAllLoaded, currentPage + 1, completedFn);
+					}
+				}
+
+				completedFn(error, {stargazers});
+			});
+		},
 		/**
 		 * <InlineCss> component allows you to write basic CSS for your component. Target
 		 * your component with `&` and its children with `& selectors`. Be specific.
@@ -129,7 +112,7 @@ const Main = React.createClass({
 					<li>React.js + Router on the client and server</li>
 					<li>React Hot Loader for instant client updates</li>
 					<li>Babel.js automatically compiles ES6</li>
-					<li>Context-helper to preload on server to client</li>
+					<li>React-async to preload on server to client</li>
 					<li>Style-component for quick in-component CSS</li>
 					<li>Accessibility hints from react-a11y</li>
 					<li>Shrinkwrapped npm dependencies</li>

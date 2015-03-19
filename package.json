@@ -1,7 +1,7 @@
 {
   "name": "react-isomorphic-starterkit",
   "description": "Isomorphic starterkit with server-side React rendering.",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "license": "BSD-3",
   "repository": {
     "type": "git",
@@ -17,23 +17,22 @@
     "webpack",
     "hapi"
   ],
-  "main": "dist/index",
+  "main": "babel.server.js",
   "scripts": {
-    "start": "supervisor --watch dist dist/server",
+    "start": "NODE_PATH=\"$(pwd)/src\" supervisor --no-restart-on error --watch src/ ./babel.server",
     "localhost": "sleep 2; which open && open http://localhost:8000",
-    "browser": "sleep 6; concurrent --kill-others 'npm run start' 'npm run localhost'",
-    "build-server": "webpack --verbose --colors --display-error-details --config webpack.server.js",
-    "build-client": "webpack --verbose --colors --display-error-details --config webpack.client.js",
-    "build": "concurrent 'npm run build-client' 'npm run build-server'",
-    "watch-server": "webpack --verbose --colors --display-error-details --watch --config webpack.server-watch.js",
+    "browser": "sleep 2; concurrent 'npm run start' 'npm run localhost'",
+    "build": "webpack --verbose --colors --display-error-details --config webpack.client.js",
     "watch-client": "webpack --verbose --colors --display-error-details --config webpack.client-watch.js && webpack-dev-server --config webpack.client-watch.js",
-    "watch": "concurrent --kill-others 'npm run watch-client' 'npm run watch-server' 'npm run browser'"
+    "watch": "concurrent --kill-others 'npm run watch-client' 'npm run browser'"
   },
   "dependencies": {
-    "async": "0.9.0",
+    "babel": "4.7.16",
+    "fibers": "1.0.5",
     "hapi": "8.4.0",
     "react": "0.12.2",
     "react-a11y": "0.0.6",
+    "react-async": "2.0.1",
     "react-inline-css": "1.1.1",
     "react-router": "0.12.4",
     "superagent": "1.1.0"

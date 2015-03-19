@@ -13,6 +13,7 @@ Isomorphic starterkit with server-side React rendering using
 [react.js](https://facebook.github.io/react), 
 [react-router](https://github.com/rackt/react-router), 
 [react-hot-loader](https://gaearon.github.io/react-hot-loader), 
+[react-async](https://github.com/andreypopp/react-async),
 [react-a11y](https://github.com/rackt/react-a11y),
 [react-inline-css](https://github.com/RickWong/react-inline-css)
 
@@ -24,7 +25,7 @@ Isomorphic starterkit with server-side React rendering using
 - React.js + Router on the client and server
 - React Hot Loader for instant client updates
 - Babel.js automatically compiles ES6
-- Context-helper to preload on server to client
+- React-async to preload on server to client
 - Style-component for quick in-component CSS
 - Accessibility hints from react-a11y
 - Shrinkwrapped npm dependencies
