@@ -8,7 +8,6 @@ Isomorphic starterkit with server-side React rendering using
 [webpack](https://webpack.github.io/), 
 [webpack-dev-server](https://github.com/webpack/webpack-dev-server),
 [hapi.js](http://www.hapijs.com/), 
-[async](https://github.com/caolan/async), 
 [babel.js](http://babeljs.io/), 
 [react.js](https://facebook.github.io/react), 
 [react-router](https://github.com/rackt/react-router), 
@@ -20,8 +19,8 @@ Isomorphic starterkit with server-side React rendering using
 ## Features
 
 - Fully automated with npm run scripts
-- Supervisor with Hapi.js server
-- Webpack for watch and production builds
+- Supervisor with Hapi.js web server
+- Webpack for hot watch and production builds
 - React.js + Router on the client and server
 - React Hot Loader for instant client updates
 - Babel.js automatically compiles ES6
@@ -46,12 +45,12 @@ It just works out-of-the-box.
 
 ## Usage
 
-Run `npm run watch` in your terminal and play with `views/Main.jsx` to get a feel of
+Run `npm run watch` in your terminal and play with `views/Main.js` to get a feel of
 the server-side rendering and client-side hot updates.
 
 ## Community
 
-Let's start one together! After you ★Star this project, follow me [@Rygu](https://twitter.com/rygu)
+Let's start one together! After you ★Star this project, follow [@Rygu](https://twitter.com/rygu)
 on Twitter.
 
 ## License
