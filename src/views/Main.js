@@ -107,13 +107,13 @@ const Main = React.createClass({
 				<h3>Features</h3>
 				<ul>
 					<li>Fully automated with npm run scripts</li>
-					<li>Supervisor with Hapi.js server</li>
-					<li>Webpack for watch and production builds</li>
+					<li>Server hot reloads with piping and Hapi.js</li>
+					<li>Webpack for watch + production builds</li>
 					<li>React.js + Router on the client and server</li>
 					<li>React Hot Loader for instant client updates</li>
-					<li>Babel.js automatically compiles ES6</li>
+					<li>Babel.js automatically compiles ES6 + ES7</li>
 					<li>React-async to preload on server to client</li>
-					<li>Style-component for quick in-component CSS</li>
+					<li>InlineCss-component for styling components</li>
 					<li>Accessibility hints from react-a11y</li>
 					<li>Shrinkwrapped npm dependencies</li>
 				</ul>

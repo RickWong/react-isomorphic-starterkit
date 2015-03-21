@@ -1,3 +1,7 @@
+if (!require("piping")()) {
+	return;
+}
+
 require("babel/register")({
 	experimental: true
 });

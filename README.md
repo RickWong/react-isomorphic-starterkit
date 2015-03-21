@@ -4,7 +4,7 @@
 
 Isomorphic starterkit with server-side React rendering using 
 [npm](https://www.npmjs.com/), 
-[supervisor](https://www.npmjs.com/package/supervisor), 
+[piping](https://github.com/mdlawson/piping), 
 [webpack](https://webpack.github.io/), 
 [webpack-dev-server](https://github.com/webpack/webpack-dev-server),
 [hapi.js](http://www.hapijs.com/), 
@@ -19,13 +19,13 @@ Isomorphic starterkit with server-side React rendering using
 ## Features
 
 - Fully automated with npm run scripts
-- Supervisor with Hapi.js web server
-- Webpack for hot watch and production builds
+- Server hot reloads with piping and Hapi.js
+- Webpack for watch + production builds
 - React.js + Router on the client and server
 - React Hot Loader for instant client updates
-- Babel.js automatically compiles ES6
+- Babel.js automatically compiles ES6 + ES7
 - React-async to preload on server to client
-- Style-component for quick in-component CSS
+- InlineCss-component for styling components
 - Accessibility hints from react-a11y
 - Shrinkwrapped npm dependencies
 
@@ -36,7 +36,7 @@ It just works out-of-the-box.
 	git clone https://github.com/RickWong/react-isomorphic-starterkit.git
 	cd react-isomorphic-starterkit
 	
-	npm install -g supervisor webpack webpack-dev-server concurrently
+	npm install -g concurrently webpack webpack-dev-server
 	npm install
 	npm run watch     # yes, one command for server and client development!
 	
