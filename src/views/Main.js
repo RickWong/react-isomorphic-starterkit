@@ -115,7 +115,6 @@ const Main = React.createClass({
 					<li>React-async to preload on server to client</li>
 					<li>InlineCss-component for styling components</li>
 					<li>Accessibility hints from react-a11y</li>
-					<li>Shrinkwrapped npm dependencies</li>
 				</ul>
 				<p>
 					In short – <em>an excellent choice</em>.

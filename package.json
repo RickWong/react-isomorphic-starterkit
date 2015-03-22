@@ -1,7 +1,7 @@
 {
   "name": "react-isomorphic-starterkit",
   "description": "Isomorphic starterkit with server-side React rendering.",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "license": "BSD-3",
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
   "main": "babel.server.js",
   "scripts": {
     "start": "NODE_PATH=\"./src\" node ./babel.server",
-    "localhost": "sleep 2; which open && open http://localhost:8000",
+    "localhost": "sleep 1; which open && open http://localhost:8000",
     "browser": "sleep 2; concurrent 'npm run start' 'npm run localhost'",
     "build": "webpack --verbose --colors --display-error-details --config webpack.client.js",
     "watch-client": "webpack --verbose --colors --display-error-details --config webpack.client-watch.js && webpack-dev-server --config webpack.client-watch.js",

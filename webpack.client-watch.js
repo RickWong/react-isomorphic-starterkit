@@ -32,8 +32,9 @@ config.devServer = {
 	contentBase: "./static",
 	hot:         true,
 	inline:      true,
+	lazy:        false,
 	quiet:       true,
-	noInfo:      true,
+	noInfo:      false,
 	headers:     {"Access-Control-Allow-Origin": "*"},
 	stats:       {colors: true}
 };

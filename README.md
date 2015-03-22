@@ -27,7 +27,6 @@ Isomorphic starterkit with server-side React rendering using
 - React-async to preload on server to client
 - InlineCss-component for styling components
 - Accessibility hints from react-a11y
-- Shrinkwrapped npm dependencies
 
 It just works out-of-the-box.
 
