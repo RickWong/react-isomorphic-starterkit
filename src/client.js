@@ -1,6 +1,6 @@
 import React from "react";
-import ReactAsync from "react-async";
 import Router from "react-router";
+import Transmit from "react-transmit";
 import routes from "views/Routes";
 
 /**
@@ -14,7 +14,7 @@ if (process.env.NODE_ENV !== "production") {
  * Fire-up React Router.
  */
 Router.run(routes, Router.HistoryLocation, (Handler) => {
-	React.render(<Handler />, document.getElementById("react-root"));
+	Transmit.render(Handler, {}, document.getElementById("react-root"));
 });
 
 /**

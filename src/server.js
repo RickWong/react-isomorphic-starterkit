@@ -1,7 +1,7 @@
 import {Server} from "hapi";
 import React from "react";
-import ReactAsync from "react-async";
 import Router from "react-router";
+import Transmit from "react-transmit";
 import routes from "views/Routes";
 
 /**
@@ -31,11 +31,9 @@ server.ext("onPreResponse", (request, reply) => {
 	}
 
 	Router.run(routes, request.path, (Handler, router) => {
-		ReactAsync.renderToStringAsync(
-			<Handler />,
-			(error, reactString, reactData) => {
-				let output = (
-					`<!doctype html>
+		Transmit.renderToString(Handler, {}, (reactString, reactData) => {
+			let output = (
+				`<!doctype html>
 					<html lang="en-us">
 						<head>
 							<meta charset="utf-8">
@@ -46,13 +44,12 @@ server.ext("onPreResponse", (request, reply) => {
 							<div id="react-root">${reactString}</div>
 						</body>
 					</html>`
-				);
+			);
 
-				const webserver = process.env.NODE_ENV === "production" ? "" : "//localhost:8080";
-				output = ReactAsync.injectIntoMarkup(output, reactData, [`${webserver}/dist/client.js`]);
+			const webserver = process.env.NODE_ENV === "production" ? "" : "//localhost:8080";
+			output = Transmit.injectIntoMarkup(output, reactData, [`${webserver}/dist/client.js`]);
 
-				reply(output);
-			}
-		);
+			reply(output);
+		});
 	})
 });

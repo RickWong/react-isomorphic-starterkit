@@ -12,9 +12,9 @@ Isomorphic starterkit with server-side React rendering using
 [react.js](https://facebook.github.io/react), 
 [react-router](https://github.com/rackt/react-router), 
 [react-hot-loader](https://gaearon.github.io/react-hot-loader), 
-[react-async](https://github.com/andreypopp/react-async),
-[react-a11y](https://github.com/rackt/react-a11y),
-[react-inline-css](https://github.com/RickWong/react-inline-css)
+[react-transmit](https://github.com/RickWong/react-transmit),
+[react-inline-css](https://github.com/RickWong/react-inline-css),
+[react-a11y](https://github.com/rackt/react-a11y)
 
 ## Features
 
@@ -24,7 +24,7 @@ Isomorphic starterkit with server-side React rendering using
 - React.js + Router on the client and server
 - React Hot Loader for instant client updates
 - Babel.js automatically compiles ES6 + ES7
-- React-async to preload on server to client
+- React Transmit to preload on server to client
 - InlineCss-component for styling components
 - Accessibility hints from react-a11y
 
@@ -39,8 +39,9 @@ It just works out-of-the-box.
 	npm install
 	npm run watch     # yes, one command for server and client development!
 	
-	# production 
-	NODE_ENV=production npm run build  
+	# production build and run
+	NODE_ENV=production npm run build
+	NODE_ENV=production npm run browser  
 
 ## Usage
 

@@ -1,7 +1,7 @@
 import React from "react";
-import ReactAsync from "react-async";
 import InlineCss from "react-inline-css";
-import Superagent from "superagent";
+import Transmit from "react-transmit";
+import __fetch from "isomorphic-fetch";
 
 /**
  * Main React application entry-point for both the server and client.
@@ -9,58 +9,37 @@ import Superagent from "superagent";
  * @class Main
  */
 const Main = React.createClass({
-	mixins: [
-		ReactAsync.Mixin
-	],
 	/**
 	 * Server and client.
 	 */
-	getInitialStateAsync (completedFn) {
+	componentWillMount () {
 		/**
-		  * Load the first 100 stargazers on the server.
-		  */
-		if (__SERVER__) {
-			Main.loadStargazersFn([], false, 1, completedFn);
+		 * Load the next 100 stargazers.
+		 */
+		if (__CLIENT__) {
+			this.props.setQueryParams({
+				prevStargazers: this.props.stargazers,
+				nextPage: this.props.queryParams.nextPage + 1,
+				pagesToFetch: this.props.queryParams.pagesToFetch - 1
+			});
 		}
 	},
 	/**
-	 * Server and client.
+	 * Client only.
 	 */
-	componentWillMount() {
-		if (__CLIENT__) {
-			/**
-			 * Load the rest of the stargazers on the client.
-			 */
-			Main.loadStargazersFn(this.state.stargazers || [], true, 2, (error, state) => {
-				this.setState(state);
+	componentWillReceiveProps (nextProps) {
+		/**
+		 * Load the rest of the stargazers repeatedly.
+		 */
+		if (nextProps.queryParams.pagesToFetch > 0) {
+			this.props.setQueryParams({
+				prevStargazers: nextProps.stargazers,
+				nextPage: nextProps.queryParams.nextPage + 1,
+				pagesToFetch: nextProps.queryParams.pagesToFetch - 1
 			});
 		}
 	},
 	statics: {
-		/**
-		 * Use Superagent to retrieve the list of GitHub stargazers.
-		 */
-		loadStargazersFn (stargazers, untilAllLoaded, currentPage, completedFn) {
-			Superagent.get(
-				`https://api.github.com/repos/RickWong/react-isomorphic-starterkit/stargazers?per_page=100&page=${currentPage}`
-			).
-			end((error, response) => {
-				if (response && Array.isArray(response.body)) {
-					stargazers = stargazers.concat(response.body.map((user) => {
-						return {
-							id: user.id,
-							login: user.login
-						};
-					}));
-
-					if (untilAllLoaded && response.body.length >= 100) {
-						return Main.loadStargazersFn(stargazers, untilAllLoaded, currentPage + 1, completedFn);
-					}
-				}
-
-				completedFn(error, {stargazers});
-			});
-		},
 		/**
 		 * <InlineCss> component allows you to write basic CSS for your component. Target
 		 * your component with `&` and its children with `& selectors`. Be specific.
@@ -96,6 +75,11 @@ const Main = React.createClass({
 		const avatarSize = 32;
 		const avatarUrl = (id) => `https://avatars.githubusercontent.com/u/${id}?v=3&s=${avatarSize}`;
 
+		/**
+		 * This is a Transmit prop. See end of file.
+		 */
+		const stargazers = this.props.stargazers;
+
 		return (
 			<InlineCss stylesheet={Main.css(avatarSize)} namespace="Main">
 				<a className="github" href={repositoryUrl}>
@@ -112,7 +96,7 @@ const Main = React.createClass({
 					<li>React.js + Router on the client and server</li>
 					<li>React Hot Loader for instant client updates</li>
 					<li>Babel.js automatically compiles ES6 + ES7</li>
-					<li>React-async to preload on server to client</li>
+					<li>React Transmit to preload on server to client</li>
 					<li>InlineCss-component for styling components</li>
 					<li>Accessibility hints from react-a11y</li>
 				</ul>
@@ -123,7 +107,7 @@ const Main = React.createClass({
 				<h3>Community</h3>
 				<p>
 					<a href={repositoryUrl} title="you here? star us!">
-					{this.state.stargazers.map((user) => {
+					{stargazers.map((user) => {
 						return <img key={user.id} className="avatar" src={avatarUrl(user.id)} title={user.login} alt={user.login} />;
 					})}
 						<img className="avatar" src={avatarUrl(0)} alt="you?" />
@@ -134,4 +118,37 @@ const Main = React.createClass({
 	}
 });
 
-export default Main;
+/**
+ * Use React Transmit to write declarative queries as Promises.
+ */
+export default Transmit.createContainer(Main, {
+	queryParams: {
+		prevStargazers: [],
+		nextPage: 1,
+		pagesToFetch: 22
+	},
+	queries: {
+		stargazers (queryParams) {
+			/**
+			 * Return a Promise of all the stargazers.
+			 */
+			return fetch(
+				`https://api.github.com/repos/RickWong/react-isomorphic-starterkit/stargazers?per_page=100&page=${queryParams.nextPage}`
+			).then((response) => {
+				return response.json();
+			}).then((page) => {
+				if (!page || !page.length) {
+					queryParams.pagesToFetch = 0;
+					return queryParams.prevStargazers;
+				}
+
+				const stargazers = page.map((user) => ({
+					id: user.id,
+					login: user.login
+				}));
+
+				return queryParams.prevStargazers.concat(stargazers);
+			});
+		}
+	}
+});
