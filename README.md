@@ -1,4 +1,4 @@
-![screenshot](https://i.imgur.com/5fgkanZ.png?1)
+![screenshot](https://i.imgur.com/4EaXKi8.png?1)
 
 # React Isomorphic Starterkit
 
