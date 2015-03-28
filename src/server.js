@@ -31,7 +31,11 @@ server.ext("onPreResponse", (request, reply) => {
 	}
 
 	Router.run(routes, request.path, (Handler, router) => {
-		Transmit.renderToString(Handler, {}, (reactString, reactData) => {
+		Transmit.renderToString(Handler, {}, (error, reactString, reactData) => {
+			if (error) {
+				return reply(error.stack).type("text/plain").code(500);
+			}
+
 			let output = (
 				`<!doctype html>
 					<html lang="en-us">
