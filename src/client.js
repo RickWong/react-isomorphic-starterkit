@@ -4,13 +4,6 @@ import Transmit from "react-transmit";
 import routes from "views/Routes";
 
 /**
- * Enable Accessibility warnings on the client.
- */
-if (process.env.NODE_ENV !== "production") {
-	require("react-a11y")();
-}
-
-/**
  * Fire-up React Router.
  */
 Router.run(routes, Router.HistoryLocation, (Handler) => {
