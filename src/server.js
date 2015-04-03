@@ -31,29 +31,29 @@ server.ext("onPreResponse", (request, reply) => {
 	}
 
 	Router.run(routes, request.path, (Handler, router) => {
-		Transmit.renderToString(Handler, {}, (error, reactString, reactData) => {
-			if (error) {
-				return reply(error.stack).type("text/plain").code(500);
-			}
-
+		Transmit.renderToString(
+			Handler
+		).then(({reactString, reactData}) => {
 			let output = (
 				`<!doctype html>
-					<html lang="en-us">
-						<head>
-							<meta charset="utf-8">
-							<title>react-isomorphic-starterkit</title>
-							<link rel="shortcut icon" href="/favicon.ico">
-						</head>
-						<body>
-							<div id="react-root">${reactString}</div>
-						</body>
-					</html>`
+				<html lang="en-us">
+					<head>
+						<meta charset="utf-8">
+						<title>react-isomorphic-starterkit</title>
+						<link rel="shortcut icon" href="/favicon.ico">
+					</head>
+					<body>
+						<div id="react-root">${reactString}</div>
+					</body>
+				</html>`
 			);
 
 			const webserver = process.env.NODE_ENV === "production" ? "" : "//localhost:8080";
 			output = Transmit.injectIntoMarkup(output, reactData, [`${webserver}/dist/client.js`]);
 
 			reply(output);
+		}).catch((error) => {
+			reply(error.stack).type("text/plain").code(500);
 		});
 	})
 });

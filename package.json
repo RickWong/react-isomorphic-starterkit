@@ -1,7 +1,7 @@
 {
   "name": "react-isomorphic-starterkit",
   "description": "Isomorphic starterkit with server-side React rendering.",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "license": "BSD-3",
   "repository": {
     "type": "git",
@@ -33,7 +33,7 @@
     "react": "0.13.1",
     "react-inline-css": "1.1.1",
     "react-router": "0.13.2",
-    "react-transmit": "2.3.1",
+    "react-transmit": "2.4.0",
     "isomorphic-fetch": "2.0.0"
   },
   "devDependencies": {
