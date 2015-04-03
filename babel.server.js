@@ -3,7 +3,7 @@ if (!require("piping")()) {
 }
 
 require("babel/register")({
-	experimental: true
+	stage: 1
 });
 
 /**
