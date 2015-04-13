@@ -1,5 +1,5 @@
 import React from "react";
-import Router, {Route, DefaultRoute} from "react-router";
+import {Route, DefaultRoute} from "react-router";
 import Main from "views/Main";
 
 /**

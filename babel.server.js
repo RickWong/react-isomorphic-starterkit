@@ -8,8 +8,10 @@ require("babel/register")({
 global.__CLIENT__ = false;
 global.__SERVER__ = true;
 
-if (!require("piping")({hook: true})) {
-	return;
+if (process.env.NODE_ENV !== "production") {
+	if (!require("piping")({hook: true})) {
+		return;
+	}
 }
 
 require("./src/server");
