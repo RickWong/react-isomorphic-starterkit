@@ -1,7 +1,3 @@
-if (!require("piping")()) {
-	return;
-}
-
 require("babel/register")({
 	stage: 1
 });
@@ -11,5 +7,9 @@ require("babel/register")({
  */
 global.__CLIENT__ = false;
 global.__SERVER__ = true;
+
+if (!require("piping")({hook: true})) {
+	return;
+}
 
 require("./src/server");
