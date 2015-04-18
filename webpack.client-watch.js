@@ -36,7 +36,8 @@ config.devServer = {
 	quiet:       true,
 	noInfo:      false,
 	headers:     {"Access-Control-Allow-Origin": "*"},
-	stats:       {colors: true}
+	stats:       {colors: true},
+	host:        "0.0.0.0"
 };
 
 module.exports = config;
