@@ -53,13 +53,7 @@ server.ext("onPreResponse", (request, reply) => {
 	}
 
 	Router.run(routes, request.path, (Handler, router) => {
-		Transmit.renderToString(
-			Handler, {
-				queryParams: {
-					origin: request.server.info.uri
-				}
-			}
-		).then(({reactString, reactData}) => {
+		Transmit.renderToString(Handler).then(({reactString, reactData}) => {
 			let output = (
 				`<!doctype html>
 				<html lang="en-us">
