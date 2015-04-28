@@ -32,6 +32,7 @@ It just works out-of-the-box.
 
 ## Installation
 
+```bash
 	git clone https://github.com/RickWong/react-isomorphic-starterkit.git
 	cd react-isomorphic-starterkit
 	
@@ -42,6 +43,7 @@ It just works out-of-the-box.
 	# production build and run
 	NODE_ENV=production npm run build
 	NODE_ENV=production npm run browser  
+```
 
 ## Usage
 
