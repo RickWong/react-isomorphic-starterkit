@@ -145,13 +145,22 @@ export default Transmit.createContainer(Main, {
 		 * Return a Promise of the previous stargazers + the newly fetched stargazers.
 		 */
 		allStargazers (queryParams) {
+			/**
+			 * On the server, connect to GitHub directly.
+			 */
 			let githubApi = "https://api.github.com";
 
+			/**
+			 * On the client, connect to GitHub via the Hapi proxy route.
+			 */
 			if (__CLIENT__) {
 				const {hostname, port} = window.location;
 				githubApi = `http://${hostname}:${port}/api/github`;
 			}
 
+			/**
+			 * Load a few stargazers using the Fetch API.
+			 */
 			return fetch(
 				githubApi + "/repos/RickWong/react-isomorphic-starterkit/stargazers" +
 				`?per_page=100&page=${queryParams.nextPage}`

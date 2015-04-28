@@ -24,7 +24,7 @@ server.route({
 });
 
 /**
- * Endpoint that proxies all requests to api.github.com
+ * Endpoint that proxies all GitHub API requests to https://api.github.com.
  */
 server.route({
 	method: "*",
@@ -32,7 +32,7 @@ server.route({
 	handler: {
 		proxy: {
 			passThrough: true,
-			mapUri: function (request, callback) {
+			mapUri (request, callback) {
 				callback(null, url.format({
 					protocol: "https",
 					host:     "api.github.com",
