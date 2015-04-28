@@ -38,7 +38,7 @@ It just works out-of-the-box.
 	
 	npm install -g concurrently webpack webpack-dev-server
 	npm install
-	npm run watch     # yes, one command for server and client development!
+	npm run watch     # Yes, ONE command for server AND client development!
 	
 	# production build and run
 	NODE_ENV=production npm run build
