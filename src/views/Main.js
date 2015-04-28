@@ -146,7 +146,7 @@ export default Transmit.createContainer(Main, {
 		 */
 		allStargazers (queryParams) {
 			return fetch(
-				"https://api.github.com/repos/RickWong/react-isomorphic-starterkit/stargazers" +
+				queryParams.origin + "/api/github/repos/RickWong/react-isomorphic-starterkit/stargazers" +
 				`?per_page=100&page=${queryParams.nextPage}`
 			).then((response) => response.json()).then((body) => {
 				/**
