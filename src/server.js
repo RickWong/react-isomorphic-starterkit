@@ -3,6 +3,7 @@ import React from "react";
 import Router from "react-router";
 import Transmit from "react-transmit";
 import routes from "views/Routes";
+import url from "url";
 
 /**
  * Start Hapi server on port 8000.
@@ -23,6 +24,27 @@ server.route({
 });
 
 /**
+ * Endpoint that proxies all requests to api.github.com
+ */
+server.route({
+	method: "*",
+	path: "/api/github/{path*}",
+	handler: {
+		proxy: {
+			passThrough: true,
+			mapUri: function (request, callback) {
+				callback(null, url.format({
+					protocol: "https",
+					host:     "api.github.com",
+					pathname: request.params.path,
+					query:    request.query
+				}));
+			}
+		}
+	}
+});
+
+/**
  * Catch dynamic requests here to fire-up React Router.
  */
 server.ext("onPreResponse", (request, reply) => {
@@ -32,7 +54,11 @@ server.ext("onPreResponse", (request, reply) => {
 
 	Router.run(routes, request.path, (Handler, router) => {
 		Transmit.renderToString(
-			Handler
+			Handler, {
+				queryParams: {
+					origin: request.server.info.uri
+				}
+			}
 		).then(({reactString, reactData}) => {
 			let output = (
 				`<!doctype html>
