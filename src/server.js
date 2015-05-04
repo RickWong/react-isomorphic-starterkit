@@ -10,7 +10,10 @@ import url from "url";
  */
 const server = new Server();
 server.connection({port: process.env.PORT || 8000});
-server.start();
+server.start(function () {
+	console.info("==> ✅  Server is listening");
+	console.info("==> 🌎  Go to " + server.info.uri.toLowerCase());
+});
 
 /**
  * Attempt to serve static requests from the public folder.

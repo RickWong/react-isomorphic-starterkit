@@ -1,7 +1,7 @@
 {
   "name": "react-isomorphic-starterkit",
   "description": "Isomorphic starterkit with server-side React rendering.",
-  "version": "2.3.3",
+  "version": "2.4.0",
   "license": "BSD-3",
   "repository": {
     "type": "git",
@@ -20,30 +20,28 @@
   "main": "babel.server.js",
   "scripts": {
     "start": "NODE_PATH=\"./src\" node ./babel.server",
-    "localhost": "sleep 1; which open && open http://localhost:8000",
-    "browser": "sleep 2; concurrent 'npm run start' 'npm run localhost'",
     "build": "webpack --verbose --colors --display-error-details --config webpack.client.js",
     "watch-client": "webpack --verbose --colors --display-error-details --config webpack.client-watch.js && webpack-dev-server --config webpack.client-watch.js",
-    "watch": "concurrent --kill-others 'npm run watch-client' 'npm run browser'"
+    "watch": "concurrent --kill-others 'npm run watch-client' 'npm run start'"
   },
   "dependencies": {
-    "babel": "5.1.13",
+    "babel": "5.2.10",
     "hapi": "8.4.0",
     "piping": "0.1.8",
     "react": "0.13.2",
     "react-inline-css": "1.1.1",
-    "react-router": "0.13.2",
+    "react-router": "0.13.3",
     "react-transmit": "2.5.4",
     "isomorphic-fetch": "2.0.2"
   },
   "devDependencies": {
-    "babel-core": "5.1.13",
+    "babel-core": "5.2.10",
     "babel-loader": "5.0.0",
-    "babel-runtime": "5.1.13",
+    "babel-runtime": "5.2.10",
     "concurrently": "0.0.5",
     "json-loader": "0.5.1",
-    "react-hot-loader": "1.2.5",
-    "webpack": "1.8.10",
+    "react-hot-loader": "1.2.6",
+    "webpack": "1.8.11",
     "webpack-dev-server": "1.8.2"
   },
   "engines": {
