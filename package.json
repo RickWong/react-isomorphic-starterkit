@@ -20,9 +20,9 @@
   "main": "babel.server.js",
   "scripts": {
     "start": "NODE_PATH=\"./src\" node ./babel.server",
-    "build": "webpack --verbose --colors --display-error-details --config webpack.client.js",
-    "watch-client": "webpack --verbose --colors --display-error-details --config webpack.client-watch.js && webpack-dev-server --config webpack.client-watch.js",
-    "watch": "concurrent --kill-others 'npm run watch-client' 'npm run start'"
+    "build": "./node_modules/webpack/bin/webpack.js --verbose --colors --display-error-details --config webpack.client.js",
+    "watch-client": "./node_modules/webpack/bin/webpack.js --verbose --colors --display-error-details --config webpack.client-watch.js && ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config webpack.client-watch.js",
+    "watch": "./node_modules/concurrently/src/main.js --kill-others 'npm run watch-client' 'npm run start'"
   },
   "dependencies": {
     "babel": "5.2.10",
