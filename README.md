@@ -41,7 +41,7 @@ It just works out-of-the-box.
 	
 	# production build and run
 	NODE_ENV=production npm run build
-	NODE_ENV=production npm run browser  
+	NODE_ENV=production npm run start  
 ```
 
 ## Usage
