@@ -77,7 +77,6 @@ class Main extends React.Component {
 					<li>Babel.js automatically compiles ES6 + ES7</li>
 					<li>React Transmit to preload on server to client</li>
 					<li>InlineCss-component for styling components</li>
-					<li>Accessibility hints from react-a11y</li>
 				</ul>
 				<p>
 					In short – <em>an excellent choice</em>.

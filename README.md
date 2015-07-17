@@ -13,8 +13,7 @@ Isomorphic starterkit with server-side React rendering using
 [react-router](https://github.com/rackt/react-router), 
 [react-hot-loader](https://gaearon.github.io/react-hot-loader), 
 [react-transmit](https://github.com/RickWong/react-transmit),
-[react-inline-css](https://github.com/RickWong/react-inline-css),
-[react-a11y](https://github.com/rackt/react-a11y)
+[react-inline-css](https://github.com/RickWong/react-inline-css)
 
 ## Features
 
