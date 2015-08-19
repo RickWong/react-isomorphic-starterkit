@@ -49,6 +49,25 @@ server.route({
 	}
 });
 
+server.route({
+	method: "GET",
+	path: "/api/names/{nameId}",
+	handler: (request, reply) => {
+		const exampleNames = {
+			"1": "John",
+			"2": "Jack",
+			"3": "Jane"
+		};
+
+		const name = exampleNames[request.params.nameId];
+		const result = {
+			name: name ? name : "Name not found"
+		};
+		
+		reply(result);
+	}
+});
+
 /**
  * Catch dynamic requests here to fire-up React Router.
  */
@@ -58,7 +77,7 @@ server.ext("onPreResponse", (request, reply) => {
 	}
 
 	Router.run(routes, request.path, (Handler, router) => {
-		Transmit.renderToString(Handler).then(({reactString, reactData}) => {
+		Transmit.renderToString(Handler, {queryParams: router.params}).then(({reactString, reactData}) => {
 			let output = (
 				`<!doctype html>
 				<html lang="en-us">

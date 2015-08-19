@@ -6,8 +6,8 @@ import routes from "views/Routes";
 /**
  * Fire-up React Router.
  */
-Router.run(routes, Router.HistoryLocation, (Handler) => {
-	Transmit.render(Handler, {}, document.getElementById("react-root"));
+Router.run(routes, Router.HistoryLocation, (Handler, router) => {
+	Transmit.render(Handler, {queryParams: router.params}, document.getElementById("react-root"));
 });
 
 /**
