@@ -28,14 +28,14 @@ class Main extends React.Component {
 			 * Recursive function to transmit the rest of the stargazers on the client.
 			 */
 			const transmitRemainingStargazers = () => {
-				if (!this.props.queryParams.pagesToFetch > 0) {
+				if (!this.props.transmit.variables.pagesToFetch > 0) {
 					return;
 				}
 
-				this.props.setQueryParams({
-					prevStargazers: this.props.allStargazers,
-					nextPage:       this.props.queryParams.nextPage + 1,
-					pagesToFetch:   this.props.queryParams.pagesToFetch - 1
+				this.props.transmit.forceFetch({
+					prevStargazers: this.props.stargazers,
+					nextPage:       this.props.transmit.variables.nextPage + 1,
+					pagesToFetch:   this.props.transmit.variables.pagesToFetch - 1
 				}).then(transmitRemainingStargazers);
 			};
 
@@ -52,48 +52,49 @@ class Main extends React.Component {
 		const avatarUrl     = (id) => `https://avatars.githubusercontent.com/u/${id}?v=3&s=${avatarSize}`;
 
 		/**
-		 * This is a Transmit prop. See below for its query.
+		 * This is a Transmit fragment.
 		 */
-		const stargazers = this.props.allStargazers;
+		const {stargazers} = this.props;
 
 		return (
 			<InlineCss stylesheet={Main.css(avatarSize)} namespace="Main">
 				<a className="github" href={repositoryUrl}>
 					<img src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub"/>
 				</a>
-
 				<h1>
 					<img src="/favicon.ico" alt="icon"/>
-					<br/> Welcome to React Isomorphic Starterkit.
+					<br/>React Isomorphic Starterkit. Let's get you started!
 				</h1>
-
-				<h3>Features</h3>
+				<h3>All-You-Need Features</h3>
 				<ul>
-					<li>Fully automated with npm run scripts</li>
-					<li>Server hot reloads with piping and Hapi.js</li>
-					<li>Webpack for watch + production builds</li>
-					<li>React.js + Router on the client and server</li>
+					<li>Fully automated toolchain with npm run scripts</li>
+					<li>Hot reloading web server with piping and Hapi.js</li>
+					<li>Webpack for watching and production builds</li>
+					<li>React.js + React Router on the client and server</li>
 					<li>React Hot Loader for instant client updates</li>
-					<li>Babel.js automatically compiles ES6 + ES7</li>
-					<li>React Transmit to preload on server to client</li>
+					<li>Babel.js automatically compiles ES2015 + ES7</li>
+					<li>React Transmit to preload on server and hydrate client</li>
 					<li>InlineCss-component for styling components</li>
 				</ul>
 				<p>
-					In short – <em>an excellent choice</em>.
+					In short: <em>an excellent choice</em>.
 					Ready to start{'?'}
 				</p>
-
-				<h3>Community</h3>
-
+				<h3>
+					Open Community
+					<iframe src="https://ghbtns.com/github-btn.html?user=RickWong&repo=react-isomorphic-starterkit&type=star&count=true" frameBorder="0" scrolling="0" width="110" height="20" style={{float:"right"}}></iframe>
+				</h3>
 				<p>
+					<a href={repositoryUrl} title="star = join us!">
+						<img className="avatar" src={avatarUrl(0)} alt="you?" />
+					</a>
+					{stargazers.map((user) =>
+						<a key={user.id} href={"https://github.com/"+user.login} title={user.login} target="_blank">
+							<img className="avatar" src={avatarUrl(user.id)} alt={user.login} />
+						</a>
+					)}
 					<a href={repositoryUrl} title="you here? star us!">
-						{stargazers.map((user) => {
-							return (
-								<img key={user.id} className="avatar" src={avatarUrl(user.id)}
-								     title={user.login} alt={user.login} />
-							);
-						})}
-						<img className="avatar" src={avatarUrl(0)} alt="you?"/>
+						<img className="avatar" src={avatarUrl(0)} alt="you?" />
 					</a>
 				</p>
 			</InlineCss>
@@ -115,7 +116,7 @@ class Main extends React.Component {
 				font-family: sans-serif;
 				color: #0df;
 				padding: 10px 30px 30px;
-				width: 380px;
+				width: 443px;
 				margin: 10px auto;
 				background: #222;
 			}
@@ -134,16 +135,16 @@ class Main extends React.Component {
  * Use Transmit to query and return GitHub stargazers as a Promise.
  */
 export default Transmit.createContainer(Main, {
-	queryParams: {
-		prevStargazers: [],
+	initialVariables: {
 		nextPage:       1,
-		pagesToFetch:   10
+		pagesToFetch:   15,
+		prevStargazers: []
 	},
-	queries: {
+	fragments: {
 		/**
 		 * Return a Promise of the previous stargazers + the newly fetched stargazers.
 		 */
-		allStargazers (queryParams) {
+		stargazers ({nextPage, pagesToFetch, prevStargazers}) {
 			/**
 			 * On the server, connect to GitHub directly.
 			 */
@@ -162,15 +163,15 @@ export default Transmit.createContainer(Main, {
 			 */
 			return fetch(
 				githubApi + "/repos/RickWong/react-isomorphic-starterkit/stargazers" +
-				`?per_page=100&page=${queryParams.nextPage}`
+				`?per_page=100&page=${nextPage}`
 			).then((response) => response.json()).then((body) => {
 				/**
 				 * Stop fetching if the response body is empty.
 				 */
 				if (!body || !body.length) {
-					queryParams.pagesToFetch = 0;
+					pagesToFetch = 0;
 
-					return queryParams.prevStargazers;
+					return prevStargazers;
 				}
 
 				/**
@@ -178,8 +179,11 @@ export default Transmit.createContainer(Main, {
 				 */
 				const fechedStargazers = body.map(({id, login}) => ({id, login}));
 
-				return queryParams.prevStargazers.concat(fechedStargazers);
+				return prevStargazers.concat(fechedStargazers);
+			}).catch((error) => {
+				console.error(error);
 			});
 		}
 	}
 });
+

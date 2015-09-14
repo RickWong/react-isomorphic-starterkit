@@ -27,6 +27,9 @@ module.exports = {
 		]
 	},
 	resolve: {
+		alias: {
+			react: path.join(__dirname, "node_modules/react")
+		},
 		modulesDirectories: [
 			"src",
 			"node_modules",
