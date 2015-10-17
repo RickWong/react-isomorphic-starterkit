@@ -4,7 +4,7 @@ import inert from "inert";
 import React from "react";
 import ReactDOM from "react-dom/server";
 import {RoutingContext, match} from "react-router";
-import createLocation from "history/lib/createLocation";
+import {createLocation} from "history";
 import Transmit from "react-transmit";
 import routes from "views/routes";
 import url from "url";
