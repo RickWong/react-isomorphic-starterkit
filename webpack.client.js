@@ -22,9 +22,11 @@ module.exports = {
 	],
 	module:  {
 		loaders: [
-			{include: /\.json$/, loaders: ["json-loader"]},
-			{include: /\.js$/, loaders: ["babel-loader?stage=0&optional=runtime&plugins=typecheck"], exclude: /node_modules/}
-		]
+			{test: /\.json$/, loaders: ["json"]},
+			{test: /\.js$/, loaders: ["babel?cacheDirectory&presets[]=es2015&presets[]=react&presets[]=stage-0"], exclude: /node_modules/}
+		],
+		postLoaders: [],
+		noParse: /\.min\.js/
 	},
 	resolve: {
 		alias: {

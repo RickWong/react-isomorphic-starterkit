@@ -88,7 +88,7 @@ class Main extends React.Component {
 					<a href={repositoryUrl} title="star = join us!">
 						<img className="avatar" src={avatarUrl(0)} alt="you?" />
 					</a>
-					{stargazers.map((user) =>
+					{stargazers && stargazers.map((user) =>
 						<a key={user.id} href={"https://github.com/"+user.login} title={user.login} target="_blank">
 							<img className="avatar" src={avatarUrl(user.id)} alt={user.login} />
 						</a>
