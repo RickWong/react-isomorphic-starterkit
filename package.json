@@ -1,7 +1,7 @@
 {
   "name": "react-isomorphic-starterkit",
   "description": "Isomorphic starterkit with server-side React rendering.",
-  "version": "3.1.1",
+  "version": "4.0.0",
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
     "boilerplate",
     "template",
     "webpack",
-    "hapi",
+    "koa",
     "transmit"
   ],
   "main": "babel.server.js",
@@ -29,14 +29,15 @@
   "dependencies": {
     "babel": "6.0.15",
     "babel-core": "6.1.2",
+    "babel-polyfill": "6.0.16",
     "babel-preset-es2015": "6.1.2",
     "babel-preset-react": "6.1.2",
     "babel-preset-stage-0": "6.1.2",
-    "h2o2": "4.0.2",
-    "hapi": "9.3.1",
     "history": "1.13.0",
-    "inert": "3.2.0",
     "isomorphic-fetch": "2.2.0",
+    "koa": "1.1.2",
+    "koa-proxy": "0.4.1",
+    "koa-static": "1.5.2",
     "piping": "0.3.0",
     "react": "0.14.2",
     "react-dom": "0.14.2",

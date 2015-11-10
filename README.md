@@ -3,13 +3,13 @@
 # React Isomorphic Starterkit
 
 Isomorphic starterkit with server-side React rendering using 
-[npm](https://www.npmjs.com/), 
+[npm](https://www.npmjs.com),
 [piping](https://github.com/mdlawson/piping), 
 [webpack](https://webpack.github.io/), 
 [webpack-dev-server](https://github.com/webpack/webpack-dev-server),
-[hapi.js](http://www.hapijs.com/), 
-[babel.js](http://babeljs.io/), 
-[react.js](https://facebook.github.io/react), 
+[koa](http://koajs.com),
+[babel](http://babeljs.io),
+[react](https://facebook.github.io/react),
 [react-router](https://github.com/rackt/react-router), 
 [react-hot-loader](https://gaearon.github.io/react-hot-loader), 
 [react-transmit](https://github.com/RickWong/react-transmit),
@@ -18,7 +18,7 @@ Isomorphic starterkit with server-side React rendering using
 ## Features
 
 - Fully automated toolchain with npm run scripts
-- Hot reloading web server with piping and Hapi.js
+- Hot reloading web server with Koa and Piping
 - Webpack for watching and production builds
 - React.js + React Router on the client and server
 - React Hot Loader for instant client updates

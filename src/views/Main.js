@@ -68,11 +68,11 @@ class Main extends React.Component {
 				<h3>All-You-Need Features</h3>
 				<ul>
 					<li>Fully automated toolchain with npm run scripts</li>
-					<li>Hot reloading web server with piping and Hapi.js</li>
+					<li>React 0.14 + React Router 1.0 on the client and server</li>
+					<li>Babel automatically compiles ES2015 + ES7 draft</li>
+					<li>Hot reloading web server with Koa and Piping</li>
 					<li>Webpack for watching and production builds</li>
-					<li>React.js + React Router on the client and server</li>
 					<li>React Hot Loader for instant client updates</li>
-					<li>Babel.js automatically compiles ES2015 + ES7</li>
 					<li>React Transmit to preload on server and hydrate client</li>
 					<li>InlineCss-component for styling components</li>
 				</ul>
@@ -151,7 +151,7 @@ export default Transmit.createContainer(Main, {
 			let githubApi = "https://api.github.com";
 
 			/**
-			 * On the client, connect to GitHub via the Hapi proxy route.
+			 * On the client, connect to GitHub via the proxy route.
 			 */
 			if (__CLIENT__) {
 				const {hostname, port} = window.location;
