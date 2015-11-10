@@ -5,7 +5,7 @@ var hostname = process.env.HOSTNAME || "localhost";
 
 config.cache = true;
 config.debug = true;
-config.devtool = "eval";
+config.devtool = "eval-sourcemap";
 
 config.entry.unshift(
 	"webpack-dev-server/client?http://" + hostname + ":8080",
