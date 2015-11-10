@@ -69,8 +69,8 @@ class Main extends React.Component {
 				<ul>
 					<li>Fully automated toolchain with npm run scripts</li>
 					<li>React 0.14 + React Router 1.0 on the client and server</li>
-					<li>Babel automatically compiles ES2015 + ES7 draft</li>
-					<li>Hot reloading web server with Koa and Piping</li>
+					<li>Babel 6 automatically compiles ES2015 + ES7 draft</li>
+					<li>Auto-restarting web server with Koa and Piping</li>
 					<li>Webpack for watching and production builds</li>
 					<li>React Hot Loader for instant client updates</li>
 					<li>React Transmit to preload on server and hydrate client</li>

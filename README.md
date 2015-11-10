@@ -18,11 +18,11 @@ Isomorphic starterkit with server-side React rendering using
 ## Features
 
 - Fully automated toolchain with npm run scripts
-- Hot reloading web server with Koa and Piping
+- React 0.14 + React Router 1.0 on the client and server
+- Babel 6 automatically compiles ES2015 + ES7 draft
+- Auto-restarting web server with Koa and Piping
 - Webpack for watching and production builds
-- React.js + React Router on the client and server
 - React Hot Loader for instant client updates
-- Babel.js automatically compiles ES2015 + ES7
 - React Transmit to preload on server and hydrate client
 - InlineCss-component for styling components
 
