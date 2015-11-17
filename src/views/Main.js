@@ -63,7 +63,7 @@ class Main extends React.Component {
 				</a>
 				<h1>
 					<img src="/favicon.ico" alt="icon"/>
-					<br/>React Isomorphic Starterkit. Let's get you started!
+					<br/>React Isomorphic Starterkit. Lets get you started!
 				</h1>
 				<h3>All-You-Need Features</h3>
 				<ul>
