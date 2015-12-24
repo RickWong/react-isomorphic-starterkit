@@ -8,6 +8,7 @@ import {RoutingContext, match} from "react-router";
 import {createLocation} from "history";
 import Transmit from "react-transmit";
 
+import githubApi from "apis/github";
 import routes from "views/routes";
 
 const app      = koa();
@@ -17,7 +18,7 @@ const port     = process.env.PORT || 8000;
 app.use(serve("static", {defer: true}));
 
 app.use(proxy({
-	host: "https://api.github.com",
+	host: githubApi.url,
 	match: /^\/api\/github\//i,
 	map: (path) => path.replace(/^\/api\/github\//i, "/")
 }));

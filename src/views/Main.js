@@ -1,46 +1,65 @@
-import __fetch from "isomorphic-fetch";
 import React from "react";
 import InlineCss from "react-inline-css";
 import Transmit from "react-transmit";
+import githubApi from "apis/github";
+
+const fetchStargazers  = (page, per_page = 100) => {
+	return githubApi.browse(
+		["repos", "RickWong/react-isomorphic-starterkit", "stargazers"],
+		{ query: { page, per_page } }
+	).then(json => {
+		return json || [];
+	}).catch(error => {
+		throw error;
+	});
+};
 
 /**
  * Main React application entry-point for both the server and client.
  */
 class Main extends React.Component {
 	/**
-	 * Runs on server and client.
+	 * componentWillMount() runs on server and client.
 	 */
 	componentWillMount () {
 		if (__SERVER__) {
-			/**
-			 * This is only run on the server, and will be removed from the client build.
-			 */
 			console.log("Hello server");
 		}
 
 		if (__CLIENT__) {
-			/**
-			 * This is only run on the client.
-			 */
 			console.log("Hello client");
-
-			/**
-			 * Recursive function to transmit the rest of the stargazers on the client.
-			 */
-			const transmitRemainingStargazers = () => {
-				if (!this.props.transmit.variables.pagesToFetch > 0) {
-					return;
-				}
-
-				this.props.transmit.forceFetch({
-					prevStargazers: this.props.stargazers,
-					nextPage:       this.props.transmit.variables.nextPage + 1,
-					pagesToFetch:   this.props.transmit.variables.pagesToFetch - 1
-				}).then(transmitRemainingStargazers);
-			};
-
-			transmitRemainingStargazers();
 		}
+	}
+
+	/**
+	 * componentDidUpdate() only runs on the client.
+	 */
+	componentDidUpdate (prevProps, prevState) {
+		if (!this.props.additionalStargazers) {
+			return;
+		}
+
+		this.loadMoreStargazersOnClient();
+	}
+
+	/**
+	 * Load more stargazers.
+	 */
+	loadMoreStargazersOnClient () {
+		const {additionalStargazers = [], transmit} = this.props;
+		let {nextPage, pagesToFetch} = transmit.variables;
+
+		if (--pagesToFetch <= 0) {
+			return;
+		}
+
+		++nextPage;
+
+		transmit.forceFetch({
+			nextPage,
+			pagesToFetch,
+			additionalStargazers
+		}, "additionalStargazers");
 	}
 
 	/**
@@ -54,7 +73,11 @@ class Main extends React.Component {
 		/**
 		 * This is a Transmit fragment.
 		 */
-		const {stargazers} = this.props;
+		let {stargazers, additionalStargazers} = this.props;
+
+		if (additionalStargazers) {
+			stargazers = stargazers.concat(additionalStargazers);
+		}
 
 		return (
 			<InlineCss stylesheet={Main.css(avatarSize)} namespace="Main">
@@ -88,7 +111,7 @@ class Main extends React.Component {
 					<a href={repositoryUrl} title="star = join us!">
 						<img className="avatar" src={avatarUrl(0)} alt="you?" />
 					</a>
-					{stargazers && stargazers.map((user) =>
+					{stargazers && stargazers.map(user =>
 						<a key={user.id} href={"https://github.com/"+user.login} title={user.login} target="_blank">
 							<img className="avatar" src={avatarUrl(user.id)} alt={user.login} />
 						</a>
@@ -128,7 +151,6 @@ class Main extends React.Component {
 			}
 		`);
 	}
-
 }
 
 /**
@@ -136,52 +158,25 @@ class Main extends React.Component {
  */
 export default Transmit.createContainer(Main, {
 	initialVariables: {
-		nextPage:       1,
+		nextPage:       2,
 		pagesToFetch:   15,
-		prevStargazers: []
+		additionalStargazers: []
 	},
 	fragments: {
 		/**
-		 * Return a Promise of the previous stargazers + the newly fetched stargazers.
+		 * Load first stargazers.
 		 */
-		stargazers ({nextPage, pagesToFetch, prevStargazers}) {
-			/**
-			 * On the server, connect to GitHub directly.
-			 */
-			let githubApi = "https://api.github.com";
+		stargazers: () => fetchStargazers(1),
+		/**
+		 * Load more stargazers deferred.
+		 */
+		additionalStargazers: ({nextPage, additionalStargazers}) => {
+			return () => fetchStargazers(nextPage).then(newStargazers => {
+				newStargazers = newStargazers.map(({id, login}) => {
+					return { id, login };
+				});
 
-			/**
-			 * On the client, connect to GitHub via the proxy route.
-			 */
-			if (__CLIENT__) {
-				const {hostname, port} = window.location;
-				githubApi = `http://${hostname}:${port}/api/github`;
-			}
-
-			/**
-			 * Load a few stargazers using the Fetch API.
-			 */
-			return fetch(
-				githubApi + "/repos/RickWong/react-isomorphic-starterkit/stargazers" +
-				`?per_page=100&page=${nextPage}`
-			).then((response) => response.json()).then((body) => {
-				/**
-				 * Stop fetching if the response body is empty.
-				 */
-				if (!body || !body.length) {
-					pagesToFetch = 0;
-
-					return prevStargazers;
-				}
-
-				/**
-				 * Pick id and username from fetched stargazers.
-				 */
-				const fechedStargazers = body.map(({id, login}) => ({id, login}));
-
-				return prevStargazers.concat(fechedStargazers);
-			}).catch((error) => {
-				console.error(error);
+				return additionalStargazers.concat(newStargazers);
 			});
 		}
 	}

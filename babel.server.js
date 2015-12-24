@@ -21,5 +21,5 @@ try {
 	require("./src/server");
 }
 catch (error) {
-	console.error(error.stack);
+	console.error(error.stack || error);
 }
