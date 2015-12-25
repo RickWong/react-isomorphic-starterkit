@@ -11,7 +11,7 @@ Isomorphic starterkit with server-side React rendering using
 [babel](http://babeljs.io),
 [react](https://facebook.github.io/react),
 [react-router](https://github.com/rackt/react-router), 
-[react-hot-loader](https://gaearon.github.io/react-hot-loader), 
+[react-transform-hmr](https://github.com/gaearon/react-transform-hmr), 
 [react-transmit](https://github.com/RickWong/react-transmit),
 [react-inline-css](https://github.com/RickWong/react-inline-css)
 
@@ -24,7 +24,7 @@ Isomorphic starterkit with server-side React rendering using
 - Babel 6 automatically compiles ES2015 + ES7 draft
 - Auto-restarting web server with Koa and Piping
 - Webpack for watching and production builds
-- React Hot Loader for instant client updates
+- React Transform HMR for instant client updates
 - React Transmit to preload on server and hydrate client
 - InlineCss-component for styling components
 
