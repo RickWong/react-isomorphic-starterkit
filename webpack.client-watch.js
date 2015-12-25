@@ -5,7 +5,7 @@ var hostname = process.env.HOSTNAME || "localhost";
 
 config.cache = true;
 config.debug = true;
-config.devtool = "eval-sourcemap";
+config.devtool = "cheap-module-eval-source-map";
 
 config.entry.unshift(
 	"webpack-dev-server/client?http://" + hostname + ":8080",
@@ -19,10 +19,6 @@ config.output.hotUpdateChunkFilename = "update/[hash]/[id].update.js";
 config.plugins = [
 	new webpack.DefinePlugin({__CLIENT__: true, __SERVER__: false}),
 	new webpack.HotModuleReplacementPlugin()
-];
-
-config.module.postLoaders =  [
-	{test: /\.js$/, loaders: ["react-hot"], exclude: /node_modules/}
 ];
 
 config.devServer = {
