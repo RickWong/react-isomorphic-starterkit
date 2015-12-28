@@ -1,7 +1,7 @@
 {
   "name": "react-isomorphic-starterkit",
   "description": "Isomorphic starterkit with server-side React rendering.",
-  "version": "4.2.0",
+  "version": "4.3.0",
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
@@ -23,8 +23,7 @@
   "scripts": {
     "start": "NODE_PATH=\"./src\" node --harmony ./babel.server",
     "build": "node ./node_modules/webpack/bin/webpack.js --verbose --colors --display-error-details --config webpack.client.js",
-    "watch-client": "node ./node_modules/webpack/bin/webpack.js --verbose --colors --display-error-details --config webpack.client-watch.js && node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config webpack.client-watch.js",
-    "watch": "node ./node_modules/concurrently/src/main.js --kill-others \"npm run watch-client\" \"npm run start\""
+    "watch": "npm run start"
   },
   "dependencies": {
     "babel": "6.3.26",
@@ -51,10 +50,10 @@
   "devDependencies": {
     "babel-loader": "6.2.0",
     "babel-preset-react-hmre": "1.0.0",
-    "concurrently": "1.0.0",
     "json-loader": "0.5.4",
+    "koa-webpack-dev-middleware": "1.1.0",
     "webpack": "1.12.9",
-    "webpack-dev-server": "1.14.0"
+    "webpack-hot-middleware": "2.6.0"
   },
   "engines": {
     "node": ">=0.10.32"

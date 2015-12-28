@@ -10,11 +10,10 @@ module.exports = {
 	output:  {
 		path:          path.join(__dirname, "static/dist"),
 		filename:      "client.js",
-		chunkFilename: "[name].[id].js",
-		publicPath:    "dist/"
+		chunkFilename: "[name].[id].js"
 	},
 	plugins: [
-		new webpack.DefinePlugin({__CLIENT__: true, __SERVER__: false}),
+		new webpack.DefinePlugin({__CLIENT__: true, __SERVER__: false, __PRODUCTION__: true, __DEV__: false}),
 		new webpack.DefinePlugin({"process.env": {NODE_ENV: '"production"'}}),
 		new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.OccurenceOrderPlugin(),
@@ -22,16 +21,14 @@ module.exports = {
 	],
 	module:  {
 		loaders: [
-			{test: /\.json$/, loaders: ["json"]},
-			{test: /\.js$/, loaders: ["babel?cacheDirectory&presets[]=es2015&presets[]=stage-0&presets[]=react&presets[]=react-hmre"], exclude: /node_modules/}
+			{test: /\.json$/, loaders: ["json"]}
 		],
-		postLoaders: [],
+		postLoaders: [
+			{test: /\.js$/, loaders: ["babel?cacheDirectory&presets[]=es2015&presets[]=stage-0&presets[]=react"], exclude: /node_modules/}
+		],
 		noParse: /\.min\.js/
 	},
 	resolve: {
-		alias: {
-			react: path.join(__dirname, "node_modules/react")
-		},
 		modulesDirectories: [
 			"src",
 			"node_modules",
