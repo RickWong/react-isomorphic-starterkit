@@ -28,8 +28,8 @@ config.devServer = {
 	hot:         true,
 	inline:      true,
 	lazy:        false,
-	quiet:       false,
-	noInfo:      false,
+	quiet:       true,
+	noInfo:      true,
 	headers:     {"Access-Control-Allow-Origin": "*"},
 	stats: {colors: true},
 	host:        process.env.HOSTNAME || "localhost"

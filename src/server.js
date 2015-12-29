@@ -1,6 +1,6 @@
 import koa from "koa";
-import proxy from "koa-proxy";
-import serve from "koa-static";
+import koaProxy from "koa-proxy";
+import koaStatic from "koa-static";
 
 import React from "react";
 import ReactDOM from "react-dom/server";
@@ -28,9 +28,9 @@ try {
 		});
 	}
 
-	app.use(serve("static", {defer: true}));
+	app.use(koaStatic("static", {defer: true}));
 
-	app.use(proxy({
+	app.use(koaProxy({
 		host: githubApi.url,
 		match: /^\/api\/github\//i,
 		map: (path) => path.replace(/^\/api\/github\//i, "/")
