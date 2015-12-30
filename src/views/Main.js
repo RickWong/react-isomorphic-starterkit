@@ -1,7 +1,8 @@
 import React from "react";
 import InlineCss from "react-inline-css";
 import Transmit from "react-transmit";
-import githubApi from "apis/github";
+
+import githubApi from "../apis/github";
 
 const fetchStargazers  = (page, per_page = 100) => {
 	return githubApi.browse(

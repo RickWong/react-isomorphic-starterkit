@@ -2,8 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {Router} from "react-router";
 import Transmit from "react-transmit";
-import routes from "views/routes";
 import {createHistory} from "history";
+
+import routes from "./views/routes";
 
 /**
  * Fire-up React Router.

@@ -8,8 +8,8 @@ import {RoutingContext, match} from "react-router";
 import {createLocation} from "history";
 import Transmit from "react-transmit";
 
-import githubApi from "apis/github";
-import routes from "views/routes";
+import githubApi from "./apis/github";
+import routes from "./views/routes";
 
 try {
 	const app      = koa();
