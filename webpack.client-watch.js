@@ -15,8 +15,7 @@ config.output.hotUpdateChunkFilename = "update/[hash]/[id].update.js";
 
 config.plugins = [
 	new webpack.DefinePlugin({__CLIENT__: true, __SERVER__: false, __PRODUCTION__: false, __DEV__: true}),
-	new webpack.HotModuleReplacementPlugin(),
-	new webpack.NoErrorsPlugin()
+	new webpack.HotModuleReplacementPlugin()
 ];
 
 config.module.postLoaders = [

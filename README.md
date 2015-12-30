@@ -39,7 +39,7 @@ git clone https://github.com/RickWong/react-isomorphic-starterkit.git
 cd react-isomorphic-starterkit
 	
 npm install
-npm run watch     # Yes, ONE command for server AND client development!
+npm run watch     # Yes, ONE command for both server AND client development!
 ```
 
 Production
