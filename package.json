@@ -21,7 +21,7 @@
   ],
   "main": "babel.server.js",
   "scripts": {
-    "start": "NODE_PATH=\"./src\" node --harmony ./babel.server",
+    "start": "node --harmony ./babel.server",
     "build": "node ./node_modules/webpack/bin/webpack.js --verbose --colors --display-error-details --config webpack.client.js",
     "watch": "npm run start"
   },
