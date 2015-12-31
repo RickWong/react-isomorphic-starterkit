@@ -1,32 +1,21 @@
+import babelPolyfill from "babel-polyfill";
 import koa from "koa";
 import koaProxy from "koa-proxy";
 import koaStatic from "koa-static";
-
 import React from "react";
 import ReactDOM from "react-dom/server";
-import {RoutingContext, match} from "react-router";
-import {createLocation} from "history";
+import * as ReactRouter from "react-router";
+import * as history from "history";
 import Transmit from "react-transmit";
 
-import githubApi from "./apis/github";
-import routes from "./views/routes";
+import githubApi from "apis/github";
+import routesContainer from "containers/routes";
 
 try {
 	const app      = koa();
 	const hostname = process.env.HOSTNAME || "localhost";
 	const port     = process.env.PORT || 8000;
-
-	if (__DEV__) {
-		const webpack       = require("webpack");
-		const webpackConfig = require("../webpack.client-watch");
-		const compiler      = webpack(webpackConfig);
-
-		app.use(require("koa-webpack-dev-middleware")(compiler, webpackConfig.devServer));
-		app.use(function* (next) {
-			yield require("webpack-hot-middleware")(compiler).bind(null, this.req, this.res);
-			yield next;
-		});
-	}
+	let   routes   = routesContainer;
 
 	app.use(koaStatic("static", {defer: true}));
 
@@ -37,11 +26,11 @@ try {
 	}));
 
 	app.use(function *(next) {
-		const location  = createLocation(this.path);
-		const webserver = __PRODUCTION__ ? "" : `//${hostname}:${port}`;
-
 		yield ((callback) => {
-			match({routes, location}, (error, redirectLocation, renderProps) => {
+			const webserver = __PRODUCTION__ ? "" : `//${this.hostname}:8080`;
+			const location  = history.createLocation(this.path);
+
+			ReactRouter.match({routes, location}, (error, redirectLocation, renderProps) => {
 				if (redirectLocation) {
 					this.redirect(redirectLocation.pathname + redirectLocation.search, "/");
 					return;
@@ -52,7 +41,7 @@ try {
 					return;
 				}
 
-				Transmit.renderToString(RoutingContext, renderProps).then(({reactString, reactData}) => {
+				Transmit.renderToString(ReactRouter.RoutingContext, renderProps).then(({reactString, reactData}) => {
 					let template = (
 						`<!doctype html>
 						<html lang="en-us">
@@ -80,6 +69,16 @@ try {
 		console.info("==> ✅  Server is listening");
 		console.info("==> 🌎  Go to http://%s:%s", hostname, port);
 	});
+
+	if (__DEV__) {
+		if (module.hot) {
+			console.log("[HMR] Server listening");
+
+			module.hot.accept("containers/routes", () => {
+				routes = require("containers/routes");
+			});
+		}
+	}
 }
 catch (error) {
 	console.error(error.stack || error);

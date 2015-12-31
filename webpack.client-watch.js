@@ -1,15 +1,18 @@
 var webpack = require("webpack");
 var config = require("./webpack.client.js");
+var hostname = process.env.HOSTNAME || "localhost";
+var port     = 8080;
 
-config.cache = true;
-config.debug = true;
+config.cache   = true;
+config.debug   = true;
 config.devtool = "cheap-module-eval-source-map";
 
 config.entry.unshift(
-	"webpack-hot-middleware/client"
+	"webpack-dev-server/client?http://" + hostname + ":" + port,
+	"webpack/hot/only-dev-server"
 );
 
-config.output.publicPath = "/dist/";
+config.output.publicPath = "http://" + hostname + ":" + port + "/dist/";
 config.output.hotUpdateMainFilename = "update/[hash]/update.json";
 config.output.hotUpdateChunkFilename = "update/[hash]/[id].update.js";
 
@@ -23,7 +26,7 @@ config.module.postLoaders = [
 ];
 
 config.devServer = {
-	publicPath: "/dist/",
+	publicPath:  config.output.publicPath,
 	hot:         true,
 	inline:      true,
 	lazy:        false,

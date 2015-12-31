@@ -19,11 +19,10 @@ Isomorphic starterkit with server-side React rendering using
 
 ## Features
 
-- Fully automated toolchain with npm run scripts
+- Fully automated toolchain with npm run scripts and nodemon
 - React 0.14 + React Router 1.0 on the client and server
 - Babel 6 automatically compiles ES2015 + ES7 draft
-- Auto-restarting web server with Koa and Piping
-- Webpack for watching and production builds
+- Webpack HMR for instant server updates
 - React Transform HMR for instant client updates
 - React Transmit to preload on server and hydrate client
 - InlineCss-component for styling components
@@ -45,8 +44,8 @@ npm run watch     # Yes, ONE command for both server AND client development!
 Production
 
 ```bash
-NODE_ENV=production npm run build
-NODE_ENV=production npm run start  
+npm run build
+npm run start  
 ```
 
 ## Usage

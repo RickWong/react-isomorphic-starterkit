@@ -1,16 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {Router} from "react-router";
+import * as ReactRouter from "react-router";
+import * as history from "history";
 import Transmit from "react-transmit";
-import {createHistory} from "history";
 
-import routes from "./views/routes";
+import routesContainer from "containers/routes";
 
 /**
  * Fire-up React Router.
  */
 const reactRoot = window.document.getElementById("react-root");
-Transmit.render(Router, {routes, history: createHistory()}, reactRoot);
+Transmit.render(ReactRouter.Router, {routes: routesContainer, history: history.createHistory()}, reactRoot);
 
 /**
  * Detect whether the server-side render has been discarded due to an invalid checksum.
