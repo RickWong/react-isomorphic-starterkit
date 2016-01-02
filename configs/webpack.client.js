@@ -7,9 +7,9 @@ module.exports = {
 	context: __dirname,
 	debug:   false,
 	devtool: false,
-	entry:   ["./src/client"],
+	entry:   ["../src/client"],
 	output:  {
-		path:          path.join(__dirname, "static/dist"),
+		path:          path.join(__dirname, "../static/dist"),
 		filename:      "client.js",
 		chunkFilename: "[name].[id].js"
 	},
