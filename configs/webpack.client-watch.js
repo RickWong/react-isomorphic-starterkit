@@ -22,7 +22,7 @@ config.plugins = [
 ];
 
 config.module.postLoaders = [
-	{test: /\.js$/, loaders: ["babel?cacheDirectory&presets[]=es2015&presets[]=stage-0&presets[]=react&presets[]=react-hmre"], exclude: /node_modules/}
+	{test: /\.js$/, loaders: ["babel?cacheDirectory&presets[]=es2015-webpack2&presets[]=stage-0&presets[]=react&presets[]=react-hmre"], exclude: /node_modules/}
 ];
 
 config.devServer = {

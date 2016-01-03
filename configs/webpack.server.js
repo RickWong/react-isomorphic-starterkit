@@ -29,7 +29,7 @@ module.exports = {
 	module:  {
 		loaders: [
 			{test: /\.json$/, loaders: ["json"]},
-			{test: /\.js$/, loaders: ["babel?cacheDirectory&presets[]=es2015&presets[]=stage-0&presets[]=react"], exclude: /node_modules/}
+			{test: /\.js$/, loaders: ["babel?presets[]=es2015-webpack2&presets[]=stage-0&presets[]=react"], exclude: /node_modules/}
 		],
 		postLoaders: [],
 		noParse: /\.min\.js/
