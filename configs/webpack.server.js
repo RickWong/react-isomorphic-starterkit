@@ -24,14 +24,16 @@ module.exports = {
 		filename:      "server.js"
 	},
 	plugins: [
-		new webpack.DefinePlugin({__CLIENT__: false, __SERVER__: true, __PRODUCTION__: true, __DEV__: false})
+		new webpack.DefinePlugin({__CLIENT__: false, __SERVER__: true, __PRODUCTION__: true, __DEV__: false}),
+		new webpack.DefinePlugin({"process.env": {NODE_ENV: '"production"'}})
 	],
 	module:  {
 		loaders: [
-			{test: /\.json$/, loaders: ["json"]},
-			{test: /\.js$/, loaders: ["babel?cacheDirectory&presets[]=es2015&presets[]=stage-0&presets[]=react"], exclude: /node_modules/}
+			{test: /\.json$/, loaders: ["json"]}
 		],
-		postLoaders: [],
+		postLoaders: [
+			{test: /\.js$/, loaders: ["babel?presets[]=es2015&presets[]=stage-0&presets[]=react"], exclude: /node_modules/}
+		],
 		noParse: /\.min\.js/
 	},
 	externals: nodeModules,
