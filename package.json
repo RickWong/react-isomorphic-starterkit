@@ -1,7 +1,7 @@
 {
   "name": "react-isomorphic-starterkit",
   "description": "Isomorphic starterkit with server-side React rendering.",
-  "version": "5.0.2",
+  "version": "5.0.3",
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
@@ -31,11 +31,7 @@
     "watch": "node ./node_modules/concurrently/src/main.js \"npm run watch-server\" \"npm run watch-client\" \"node ./node_modules/nodemon/bin/nodemon --delay 2 --on-change-only --ext started --watch ./dist ./dist/server.js\""
   },
   "dependencies": {
-    "babel": "6.3.26",
-    "babel-core": "6.3.26",
     "babel-polyfill": "6.3.14",
-    "babel-preset-react": "6.3.13",
-    "babel-preset-stage-0": "6.3.13",
     "fetch-plus": "3.6.1",
     "fetch-plus-bearerauth": "3.5.0",
     "fetch-plus-json": "3.6.0",
@@ -52,9 +48,13 @@
     "react-transmit": "3.1.5"
   },
   "devDependencies": {
+    "babel": "6.3.26",
+    "babel-core": "6.3.26",
     "babel-loader": "6.2.0",
     "babel-preset-es2015-webpack2": "1.0.0",
+    "babel-preset-react": "6.3.13",
     "babel-preset-react-hmre": "1.0.1",
+    "babel-preset-stage-0": "6.3.13",
     "concurrently": "1.0.0",
     "json-loader": "0.5.4",
     "webpack": "2.0.2-beta",
