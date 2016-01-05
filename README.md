@@ -4,10 +4,8 @@
 
 Isomorphic starterkit with server-side React rendering using 
 [npm](https://www.npmjs.com),
-[piping](https://github.com/mdlawson/piping), 
-[webpack](https://webpack.github.io/), 
-[webpack-dev-server](https://github.com/webpack/webpack-dev-server),
 [koa](http://koajs.com),
+[webpack](https://webpack.github.io/), 
 [babel](http://babeljs.io),
 [react](https://facebook.github.io/react),
 [react-router](https://github.com/rackt/react-router), 
@@ -19,7 +17,7 @@ Isomorphic starterkit with server-side React rendering using
 
 ## Features
 
-- Fully automated toolchain with npm run scripts and nodemon
+- Fully automated toolchain with npm run scripts
 - React 0.14 + React Router 1.0 on the client and server
 - Babel 6 automatically compiles ES2015 + ES7 draft
 - Webpack HMR for instant server updates

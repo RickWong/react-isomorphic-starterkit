@@ -91,7 +91,7 @@ class Main extends React.Component {
 				</h1>
 				<h3>All-You-Need Features</h3>
 				<ul>
-					<li>Fully automated toolchain with npm run scripts and nodemon</li>
+					<li>Fully automated toolchain with npm run scripts</li>
 					<li>React 0.14 + React Router 1.0 on the client and server</li>
 					<li>Babel 6 automatically compiles ES2015 + ES7 draft</li>
 					<li>Webpack HMR for instant server updates</li>
