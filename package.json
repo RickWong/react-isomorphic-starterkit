@@ -1,7 +1,7 @@
 {
   "name": "react-isomorphic-starterkit",
   "description": "Isomorphic starterkit with server-side React rendering.",
-  "version": "5.0.3",
+  "version": "5.0.4",
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
@@ -21,14 +21,14 @@
   ],
   "main": "dist/server.js",
   "scripts": {
-    "start": "node ./node_modules/nodemon/bin/nodemon --watch ./dist/server.js ./dist/server.js",
+    "start": "node ./node_modules/nodemon/bin/nodemon --watch ./dist/server.js ./dist/server.js -- --harmony",
     "build-server": "node ./node_modules/webpack/bin/webpack.js --colors --display-error-details --config configs/webpack.server.js",
     "build-client": "node ./node_modules/webpack/bin/webpack.js --colors --display-error-details --config configs/webpack.client.js",
     "build": "node ./node_modules/concurrently/src/main.js \"npm run build-server\" \"npm run build-client\"",
-    "watch-server": "npm run watch-server-started && node ./node_modules/webpack/bin/webpack.js --watch --verbose --colors --display-error-details --config configs/webpack.server-watch.js",
-    "watch-server-started": "echo >> ./dist/server.started",
+    "watch-server": "node ./node_modules/webpack/bin/webpack.js --watch --verbose --colors --display-error-details --config configs/webpack.server-watch.js",
+    "watch-server-start": "node ./node_modules/wait-run/bin/wait-run.js --pattern 'dist/*.js' \"node --harmony ./dist/server.js\"",
     "watch-client": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config configs/webpack.client-watch.js",
-    "watch": "node ./node_modules/concurrently/src/main.js \"npm run watch-server\" \"npm run watch-client\" \"node ./node_modules/nodemon/bin/nodemon --delay 2 --on-change-only --ext started --watch ./dist ./dist/server.js\""
+    "watch": "node ./node_modules/concurrently/src/main.js \"npm run watch-server-start\" \"npm run watch-server\" \"npm run watch-client\""
   },
   "dependencies": {
     "babel-polyfill": "6.3.14",
@@ -50,13 +50,14 @@
   "devDependencies": {
     "babel": "6.3.26",
     "babel-core": "6.3.26",
-    "babel-loader": "6.2.0",
+    "babel-loader": "6.2.1",
     "babel-preset-es2015": "6.3.13",
     "babel-preset-react": "6.3.13",
     "babel-preset-react-hmre": "1.0.1",
     "babel-preset-stage-0": "6.3.13",
     "concurrently": "1.0.0",
     "json-loader": "0.5.4",
+    "wait-run": "1.1.0",
     "webpack": "1.12.9",
     "webpack-dev-server": "1.14.0"
   },
