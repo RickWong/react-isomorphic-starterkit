@@ -26,15 +26,15 @@ config.module.postLoaders = [
 ];
 
 config.devServer = {
-	publicPath:  config.output.publicPath,
-	hot:         true,
-	inline:      true,
-	lazy:        false,
-	quiet:       true,
-	noInfo:      true,
-	headers:     {"Access-Control-Allow-Origin": "*"},
-	stats: {colors: true},
-	host:        process.env.HOSTNAME || "localhost"
+	publicPath: config.output.publicPath,
+	hot:        true,
+	inline:     true,
+	lazy:       false,
+	quiet:      true,
+	noInfo:     true,
+	headers:    {"Access-Control-Allow-Origin": "*"},
+	stats:      {colors: true},
+	host:       hostname
 };
 
 module.exports = config;
