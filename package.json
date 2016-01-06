@@ -26,7 +26,7 @@
     "build-client": "node ./node_modules/webpack/bin/webpack.js --colors --display-error-details --config configs/webpack.client.js",
     "build": "node ./node_modules/concurrently/src/main.js \"npm run build-server\" \"npm run build-client\"",
     "watch-server": "node ./node_modules/webpack/bin/webpack.js --watch --verbose --colors --display-error-details --config configs/webpack.server-watch.js",
-    "watch-server-start": "node ./node_modules/wait-run/bin/wait-run.js --pattern 'dist/*.js' \"node --harmony ./dist/server.js\"",
+    "watch-server-start": "node ./node_modules/wait-run/bin/wait-run.js --pattern \"dist/*.js\" \"node --harmony ./dist/server.js\"",
     "watch-client": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config configs/webpack.client-watch.js",
     "watch": "node ./node_modules/concurrently/src/main.js \"npm run watch-server-start\" \"npm run watch-server\" \"npm run watch-client\""
   },
