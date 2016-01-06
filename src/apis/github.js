@@ -15,8 +15,8 @@ const githubServerUrl = () => {
 	}
 };
 
-module.exports = fetchPlus.connectEndpoint(
-	githubServerUrl(),
-	{},
-	[plusJson()]
-);
+const endpoint = fetchPlus.connectEndpoint(githubServerUrl());
+
+endpoint.addMiddleware(plusJson());
+
+module.exports = endpoint;
