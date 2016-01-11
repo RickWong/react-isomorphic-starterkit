@@ -1,7 +1,7 @@
 {
   "name": "react-isomorphic-starterkit",
   "description": "Isomorphic starterkit with server-side React rendering.",
-  "version": "5.1.0",
+  "version": "5.1.1",
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
@@ -39,12 +39,12 @@
     "isomorphic-fetch": "2.2.0",
     "koa": "1.1.2",
     "koa-proxy": "0.4.1",
-    "koa-static": "1.5.2",
+    "koa-static": "2.0.0",
     "react": "0.14.5",
     "react-dom": "0.14.5",
     "react-inline-css": "2.0.1",
     "react-router": "1.0.3",
-    "react-transmit": "3.1.5"
+    "react-transmit": "3.1.6"
   },
   "devDependencies": {
     "babel": "6.3.26",
@@ -58,8 +58,8 @@
     "forever": "0.15.1",
     "json-loader": "0.5.4",
     "just-wait": "1.0.3",
-    "webpack": "1.12.10",
-    "webpack-dev-server": "1.14.0"
+    "webpack": "1.12.11",
+    "webpack-dev-server": "1.14.1"
   },
   "engines": {
     "node": ">=0.10.32"
