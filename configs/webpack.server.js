@@ -11,6 +11,23 @@ fs.readdirSync('node_modules')
 	.forEach(function (mod) {
 		nodeModules[mod] = 'commonjs ' + mod;
 	});
+var nodeModulesTransform = function(context, request, callback) {
+  // search for a '/' indicating a nested module
+  var slashIndex = request.indexOf("/");
+  var rootModuleName;
+  if (slashIndex == -1) {
+    rootModuleName = request;
+  } else {
+    rootModuleName = request.substr(0, slashIndex);
+  }
+
+  // Match for root modules that are in our node_modules
+  if (nodeModules.hasOwnProperty(rootModuleName)) {
+    callback(null, "commonjs " + request);
+  } else {
+    callback();
+  }
+}
 
 module.exports = {
 	target:  "node",
@@ -36,7 +53,7 @@ module.exports = {
 		],
 		noParse: /\.min\.js/
 	},
-	externals: nodeModules,
+	externals: nodeModulesTransform,
 	resolve: {
 		modulesDirectories: [
 			"src",
