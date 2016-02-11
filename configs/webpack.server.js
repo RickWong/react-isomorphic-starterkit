@@ -1,16 +1,7 @@
 var webpack = require("webpack");
+var nodeExternals = require('webpack-node-externals');
 var path = require("path");
 var fs = require('fs');
-
-var nodeModules = {};
-
-fs.readdirSync('node_modules')
-	.filter(function (x) {
-		return ['.bin'].indexOf(x) === -1;
-	})
-	.forEach(function (mod) {
-		nodeModules[mod] = 'commonjs ' + mod;
-	});
 
 module.exports = {
 	target:  "node",
@@ -36,7 +27,9 @@ module.exports = {
 		],
 		noParse: /\.min\.js/
 	},
-	externals: nodeModules,
+	externals: [nodeExternals({
+		whitelist: ["webpack/hot/poll?1000"]
+	})],
 	resolve: {
 		modulesDirectories: [
 			"src",

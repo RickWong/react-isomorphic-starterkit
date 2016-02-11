@@ -59,7 +59,8 @@
     "json-loader": "0.5.4",
     "just-wait": "1.0.3",
     "webpack": "1.12.11",
-    "webpack-dev-server": "1.14.1"
+    "webpack-dev-server": "1.14.1",
+    "webpack-node-externals": "^0.4.1"
   },
   "engines": {
     "node": ">=0.10.32"
