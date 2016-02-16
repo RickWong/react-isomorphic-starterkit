@@ -21,14 +21,14 @@
   ],
   "main": "dist/server.js",
   "scripts": {
-    "start": "node node_modules/forever/bin/forever --minUptime 1000 --spinSleepTime 1000 -c \"node --harmony\" ./dist/server.js",
-    "build-server": "node node_modules/webpack/bin/webpack --colors --display-error-details --config configs/webpack.server.js",
-    "build-client": "node node_modules/webpack/bin/webpack --colors --display-error-details --config configs/webpack.client.js",
-    "build": "node node_modules/concurrently/src/main \"npm run build-server\" \"npm run build-client\"",
-    "watch-server": "node node_modules/webpack/bin/webpack --watch --verbose --colors --display-error-details --config configs/webpack.server-watch.js",
-    "watch-server-start": "node node_modules/just-wait --pattern \"dist/*.js\" && npm run start",
-    "watch-client": "node node_modules/webpack-dev-server/bin/webpack-dev-server --config configs/webpack.client-watch.js",
-    "watch": "node node_modules/concurrently/src/main --kill-others \"npm run watch-server-start\" \"npm run watch-server\" \"npm run watch-client\""
+    "start": "forever --minUptime 1000 --spinSleepTime 1000 -c \"node --harmony\" ./dist/server.js",
+    "build-server": "webpack --colors --display-error-details --config configs/webpack.server.js",
+    "build-client": "webpack --colors --display-error-details --config configs/webpack.client.js",
+    "build": "concurrent \"npm run build-server\" \"npm run build-client\"",
+    "watch-server": "webpack --watch --verbose --colors --display-error-details --config configs/webpack.server-watch.js",
+    "watch-server-start": "just-wait --pattern \"dist/*.js\" && npm run start",
+    "watch-client": "webpack-dev-server --config configs/webpack.client-watch.js",
+    "watch": "concurrent --kill-others \"npm run watch-server-start\" \"npm run watch-server\" \"npm run watch-client\""
   },
   "dependencies": {
     "babel-polyfill": "6.3.14",
@@ -57,7 +57,7 @@
     "concurrently": "1.0.0",
     "forever": "0.15.1",
     "json-loader": "0.5.4",
-    "just-wait": "1.0.3",
+    "just-wait": "1.0.4",
     "webpack": "1.12.11",
     "webpack-dev-server": "1.14.1"
   },
