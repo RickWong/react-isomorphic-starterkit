@@ -5,7 +5,6 @@ import koaStatic from "koa-static";
 import React from "react";
 import ReactDOM from "react-dom/server";
 import * as ReactRouter from "react-router";
-import * as history from "history";
 import Transmit from "react-transmit";
 
 import githubApi from "apis/github";
@@ -28,7 +27,7 @@ try {
 	app.use(function *(next) {
 		yield ((callback) => {
 			const webserver = __PRODUCTION__ ? "" : `//${this.hostname}:8080`;
-			const location  = history.createLocation(this.path);
+			const location  = this.path;
 
 			ReactRouter.match({routes, location}, (error, redirectLocation, renderProps) => {
 				if (redirectLocation) {
@@ -41,7 +40,7 @@ try {
 					return;
 				}
 
-				Transmit.renderToString(ReactRouter.RoutingContext, renderProps).then(({reactString, reactData}) => {
+				Transmit.renderToString(ReactRouter.RouterContext, renderProps).then(({reactString, reactData}) => {
 					let template = (
 						`<!doctype html>
 						<html lang="en-us">

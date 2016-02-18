@@ -18,8 +18,8 @@ Isomorphic starterkit with server-side React rendering using
 ## Features
 
 - Fully automated toolchain with npm run scripts
-- React 0.14 + React Router 1.0 on the client and server
-- Babel 6 automatically compiles ES2015 + ES7 draft
+- React 0.14 + React Router 2.0 on the client and server
+- Babel 6 automatically compiles ES2015 + ES7 stage-0
 - Webpack HMR for instant server updates
 - React Transform HMR for instant client updates
 - React Transmit to preload on server and hydrate client
