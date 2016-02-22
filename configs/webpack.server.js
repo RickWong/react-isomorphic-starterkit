@@ -21,7 +21,7 @@ module.exports = {
 	module:  {
 		loaders: [
 			{test: /\.json$/, loaders: ["json"]},
-			{test: /\.(ico|gif|png|jpg|jpeg|svg|webp|ttf|eot|woff|woff2)$/, loaders: ["file?name=/[name].[ext]"]}
+			{test: /\.(ico|gif|png|jpg|jpeg|svg|webp)$/, loaders: ["file?context=static&name=/[path][name].[ext]"]}
 		],
 		postLoaders: [
 			{test: /\.js$/, loaders: ["babel?presets[]=es2015&presets[]=stage-0&presets[]=react"], exclude: /node_modules/}

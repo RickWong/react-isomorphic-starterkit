@@ -60,6 +60,8 @@ try {
 					this.body = Transmit.injectIntoMarkup(template, reactData, [`${webserver}/dist/client.js`]);
 
 					callback(null);
+				}).catch(e => {
+					callback(e);
 				});
 			});
 		});
