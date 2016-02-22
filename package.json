@@ -1,7 +1,7 @@
 {
   "name": "react-isomorphic-starterkit",
   "description": "Isomorphic starterkit with server-side React rendering.",
-  "version": "5.2.1",
+  "version": "5.3.0",
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
@@ -35,6 +35,7 @@
     "fetch-plus": "3.6.1",
     "fetch-plus-bearerauth": "3.5.0",
     "fetch-plus-json": "3.6.0",
+    "file-loader": "0.8.5",
     "isomorphic-fetch": "2.2.1",
     "koa": "1.1.2",
     "koa-proxy": "0.4.1",

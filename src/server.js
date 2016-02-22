@@ -9,6 +9,7 @@ import Transmit from "react-transmit";
 
 import githubApi from "apis/github";
 import routesContainer from "containers/routes";
+import favicon from "favicon.ico";
 
 try {
 	const app      = koa();
@@ -45,9 +46,9 @@ try {
 						`<!doctype html>
 						<html lang="en-us">
 							<head>
-								<meta charset="utf-8">
+								<meta charset="utf-8" />
 								<title>react-isomorphic-starterkit</title>
-								<link rel="shortcut icon" href="/favicon.ico">
+								<link rel="shortcut icon" href="${favicon}" />
 							</head>
 							<body>
 								<div id="react-root">${reactString}</div>

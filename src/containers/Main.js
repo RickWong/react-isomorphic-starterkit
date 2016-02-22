@@ -3,6 +3,7 @@ import InlineCss from "react-inline-css";
 import Transmit from "react-transmit";
 
 import githubApi from "apis/github";
+import favicon from "favicon.ico";
 
 const fetchStargazers  = (page, per_page = 100) => {
 	return githubApi.browse(
@@ -86,7 +87,7 @@ class Main extends React.Component {
 					<img src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub"/>
 				</a>
 				<h1>
-					<img src="/favicon.ico" alt="icon"/>
+					<img src={favicon} alt="icon"/>
 					<br/>React Isomorphic Starterkit. Let&apos;s get you started!
 				</h1>
 				<h3>All-You-Need Features</h3>

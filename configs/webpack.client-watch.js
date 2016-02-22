@@ -12,7 +12,6 @@ config.entry.unshift(
 	"webpack/hot/only-dev-server"
 );
 
-config.output.publicPath = "http://" + hostname + ":" + port + "/dist/";
 config.output.hotUpdateMainFilename = "update/[hash]/update.json";
 config.output.hotUpdateChunkFilename = "update/[hash]/[id].update.js";
 
@@ -27,7 +26,7 @@ config.module.postLoaders = [
 ];
 
 config.devServer = {
-	publicPath: config.output.publicPath,
+	publicPath: "http://" + hostname + ":" + port + "/dist/",
 	hot:        true,
 	inline:     false,
 	lazy:       false,
