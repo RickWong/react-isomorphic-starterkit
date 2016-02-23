@@ -1,18 +1,33 @@
 var webpack = require("webpack");
 var config = require("./webpack.client.js");
-var hostname = process.env.HOSTNAME || "localhost";
-var port     = 8080;
+var wds = {
+	hostname: process.env.HOSTNAME || "localhost",
+	port: 8080
+};
 
 config.cache   = true;
 config.debug   = true;
 config.devtool = "cheap-module-eval-source-map";
 
 config.entry.unshift(
-	"webpack-dev-server/client?http://" + hostname + ":" + port,
+	"webpack-dev-server/client?http://" + wds.hostname + ":" + wds.port,
 	"webpack/hot/only-dev-server"
 );
 
-config.output.hotUpdateMainFilename = "update/[hash]/update.json";
+config.devServer = {
+	publicPath: "http://" + wds.hostname + ":" + wds.port + "/dist",
+	hot:        true,
+	inline:     false,
+	lazy:       false,
+	quiet:      true,
+	noInfo:     true,
+	headers:    {"Access-Control-Allow-Origin": "*"},
+	stats:      {colors: true},
+	host:       wds.hostname
+};
+
+config.output.publicPath             = config.devServer.publicPath;
+config.output.hotUpdateMainFilename  = "update/[hash]/update.json";
 config.output.hotUpdateChunkFilename = "update/[hash]/[id].update.js";
 
 config.plugins = [
@@ -24,17 +39,5 @@ config.plugins = [
 config.module.postLoaders = [
 	{test: /\.js$/, loaders: ["babel?cacheDirectory&presets[]=es2015&presets[]=stage-0&presets[]=react&presets[]=react-hmre"], exclude: /node_modules/}
 ];
-
-config.devServer = {
-	publicPath: "http://" + hostname + ":" + port + "/dist/",
-	hot:        true,
-	inline:     false,
-	lazy:       false,
-	quiet:      true,
-	noInfo:     true,
-	headers:    {"Access-Control-Allow-Origin": "*"},
-	stats:      {colors: true},
-	host:       hostname
-};
 
 module.exports = config;
