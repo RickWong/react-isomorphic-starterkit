@@ -41,7 +41,31 @@ try {
 					return;
 				}
 
-				Transmit.renderToString(ReactRouter.RouterContext, renderProps).then(({reactString, reactData}) => {
+				const styles = {};
+
+				const StyleProvider = React.createClass({
+					childContextTypes:{
+						styles:    React.PropTypes.array,
+						insertCss: React.PropTypes.func
+					},
+
+					getChildContext () {
+						return {
+							styles,
+							insertCss (style) { styles[style] = style._getCss(); }
+						};
+					},
+
+					render () {
+						return <ReactRouter.RouterContext {...this.props} />;
+					}
+				});
+
+				Transmit.renderToString(StyleProvider, renderProps).then(({reactString, reactData}) => {
+					let cssModules = "";
+
+					Object.keys(styles).forEach((style) => { cssModules += styles[style]; });
+
 					let template = (
 						`<!doctype html>
 						<html lang="en-us">
@@ -49,6 +73,7 @@ try {
 								<meta charset="utf-8" />
 								<title>react-isomorphic-starterkit</title>
 								<link rel="shortcut icon" href="${favicon}" />
+								<style>${cssModules}</style>
 							</head>
 							<body>
 								<div id="react-root">${reactString}</div>
@@ -90,4 +115,6 @@ try {
 }
 catch (error) {
 	console.error(error.stack || error);
+
+	throw error;
 }

@@ -3,6 +3,7 @@ import InlineCss from "react-inline-css";
 import Transmit from "react-transmit";
 
 import githubApi from "apis/github";
+import Avatar from "components/Avatar";
 import favicon from "favicon.ico";
 
 const fetchStargazers  = (page, per_page = 100) => {
@@ -109,17 +110,11 @@ class Main extends React.Component {
 					<iframe src="https://ghbtns.com/github-btn.html?user=RickWong&repo=react-isomorphic-starterkit&type=star&count=true" frameBorder="0" scrolling="0" width="110" height="20" style={{float:"right"}}></iframe>
 				</h3>
 				<p>
-					<a href={repositoryUrl} title="star = join us!">
-						<img className="avatar" src={avatarUrl(0)} alt="you?" />
-					</a>
+					<Avatar />
 					{stargazers && stargazers.map(user =>
-						<a key={user.id} href={"https://github.com/"+user.login} title={user.login} target="_blank">
-							<img className="avatar" src={avatarUrl(user.id)} alt={user.login} />
-						</a>
+						<Avatar key={user.id} user={user} />
 					)}
-					<a href={repositoryUrl} title="you here? star us!">
-						<img className="avatar" src={avatarUrl(0)} alt="you?" />
-					</a>
+					<Avatar />
 				</p>
 			</InlineCss>
 		);
@@ -143,12 +138,6 @@ class Main extends React.Component {
 				width: 443px;
 				margin: 10px auto;
 				background: #222;
-			}
-			& .avatar {
-				border-radius: 50%;
-				width: ${avatarSize}px;
-				height: ${avatarSize}px;
-				margin: 0 2px 2px 0;
 			}
 		`);
 	}
@@ -182,4 +171,3 @@ export default Transmit.createContainer(Main, {
 		}
 	}
 });
-
