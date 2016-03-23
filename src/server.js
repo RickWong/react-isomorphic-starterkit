@@ -45,7 +45,7 @@ try {
 
 				const StyleProvider = React.createClass({
 					childContextTypes:{
-						styles:    React.PropTypes.array,
+						styles:    React.PropTypes.object,
 						insertCss: React.PropTypes.func
 					},
 
