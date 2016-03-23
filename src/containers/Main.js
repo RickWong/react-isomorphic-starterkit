@@ -143,6 +143,16 @@ class Main extends React.Component {
 	}
 }
 
+if(__CLIENT__) {
+	Main.childContextTypes = {
+		insertCss: React.PropTypes.func
+	};
+
+	Main.prototype.getChildContext = () => ({
+		insertCss: (styles) => styles._insertCss()
+	});
+}
+
 /**
  * Use Transmit to query and return GitHub stargazers as a Promise.
  */
