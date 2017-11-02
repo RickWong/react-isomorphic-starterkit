@@ -32,12 +32,12 @@
   },
   "dependencies": {
     "babel-polyfill": "6.6.1",
+    "cross-fetch": "1.1.0",
     "css-loader": "0.23.1",
     "fetch-plus": "3.8.1",
     "fetch-plus-bearerauth": "3.5.0",
     "fetch-plus-json": "3.6.0",
     "file-loader": "0.8.5",
-    "isomorphic-fetch": "2.2.1",
     "isomorphic-style-loader": "0.0.10",
     "koa": "1.2.0",
     "koa-proxy": "0.5.0",

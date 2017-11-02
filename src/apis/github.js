@@ -1,4 +1,4 @@
-import fetch from "isomorphic-fetch";
+import fetch from "cross-fetch";
 import fetchPlus from "fetch-plus";
 import plusJson from "fetch-plus-json";
 import plusBearerauth from "fetch-plus-bearerauth";
